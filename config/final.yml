@@ -1,0 +1,6 @@
+---
+blobstore:
+  provider: s3
+  options:
+    bucket_name: redis-forge-boshrelease
+final_name: redis-forge
