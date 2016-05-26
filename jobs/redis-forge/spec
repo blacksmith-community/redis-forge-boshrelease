@@ -1,0 +1,8 @@
+---
+name: redis-forge
+packages: []
+templates:
+  small/manifest.yml: small/manifest.yml
+  small/plan.yml: small/plan.yml
+  service.yml: service.yml
+properties: {}
