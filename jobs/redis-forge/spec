@@ -2,7 +2,7 @@
 name: redis-forge
 packages: []
 templates:
-  small/manifest.yml: small/manifest.yml
-  small/plan.yml: small/plan.yml
-  service.yml: service.yml
+  small/manifest.yml: templates/redis/small/manifest.yml
+  small/plan.yml: templates/redis/small/plan.yml
+  service.yml: templates/redis/service.yml
 properties: {}
