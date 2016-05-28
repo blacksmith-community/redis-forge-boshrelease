@@ -1,5 +1,5 @@
-name: redis-test
-director_uuid: 510ac165-ee99-4c45-8274-1b989e5d5697
+name: (( grab meta.params.name ))
+director_uuid: (( grab meta.params.director_uuid ))
 
 meta:
   vault: (( env "secret/$BROKER_VAULT" ))
