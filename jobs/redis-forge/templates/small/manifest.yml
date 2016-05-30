@@ -1,12 +1,7 @@
-name: (( grab meta.params.name ))
-director_uuid: (( grab meta.params.director_uuid ))
-
 meta:
-  vault: (( env "secret/$BROKER_VAULT" ))
   service:
-    username: (( vault meta.vault "redis:username" ))
-    password: (( vault meta.vault "redis:password" ))
-    echo:     (( env "$ENV" ))
+    username: (( vault "secret/$BROKER_VAULT/redis:username" ))
+    password: (( vault "secret/$BROKER_VAULT/redis:password" ))
 
 releases:
 - name: redis
