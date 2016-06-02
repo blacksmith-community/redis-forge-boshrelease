@@ -1,7 +1,9 @@
 meta:
   service:
-    username: (( vault "secret/$BROKER_VAULT/redis:username" ))
-    password: (( vault "secret/$BROKER_VAULT/redis:password" ))
+    #username: (( vault "secret/$BROKER_VAULT/redis:username" ))
+    #password: (( vault "secret/$BROKER_VAULT/redis:password" ))
+    username: username
+    password: password
 
 releases:
 - name: redis
@@ -21,7 +23,7 @@ update:
 instance_groups:
 - name: redis
   instances: 1
-  azs: [z1, z2]
+  azs: [z1]
   jobs:
   - name: redis
     release: redis
