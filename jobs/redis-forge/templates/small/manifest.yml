@@ -5,6 +5,9 @@ meta:
     username: username
     password: password
 
+name: (( grab meta.params.name ))
+director_uuid: (( grab meta.params.director_uuid ))
+
 releases:
 - name: redis
   version: 12
