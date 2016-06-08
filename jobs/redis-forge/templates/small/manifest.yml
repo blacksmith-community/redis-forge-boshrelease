@@ -1,9 +1,7 @@
 meta:
   service:
-    #username: (( vault "secret/$BROKER_VAULT/redis:username" ))
-    #password: (( vault "secret/$BROKER_VAULT/redis:password" ))
-    username: username
-    password: password
+    username: (( vault $CREDENTIALS "/redis:username" ))
+    password: (( vault $CREDENTIALS "/redis:password" ))
 
 name: (( grab meta.params.name ))
 director_uuid: (( grab meta.params.director_uuid ))

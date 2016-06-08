@@ -4,5 +4,6 @@ packages: []
 templates:
   small/manifest.yml: templates/redis/small/manifest.yml
   small/plan.yml: templates/redis/small/plan.yml
+  small/init.sh: templates/redis/small/init.sh
   service.yml: templates/redis/service.yml
 properties: {}
