@@ -4,4 +4,5 @@
 #           Generates username and password for the
 #           new Redis environment.
 
-safe gen ${CREDENTIALS}/redis username password
+safe gen ${CREDENTIALS}/redis username
+safe gen ${CREDENTIALS}/redis password
