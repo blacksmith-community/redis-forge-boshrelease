@@ -3,9 +3,6 @@ meta:
     username: (( vault $CREDENTIALS "/redis:username" ))
     password: (( vault $CREDENTIALS "/redis:password" ))
 
-name: (( grab meta.params.name ))
-director_uuid: (( grab meta.params.director_uuid ))
-
 releases:
 - name: redis
   version: 12
