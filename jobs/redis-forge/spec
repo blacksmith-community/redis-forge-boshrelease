@@ -5,5 +5,6 @@ templates:
   small/manifest.yml: templates/redis/small/manifest.yml
   small/plan.yml: templates/redis/small/plan.yml
   small/init: templates/redis/small/init
+  small/credentials.yml: templates/redis/small/credentials.yml
   service.yml: templates/redis/service.yml
 properties: {}

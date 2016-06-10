@@ -2,7 +2,7 @@ meta:
   service:
     username: (( vault $CREDENTIALS "/redis:username" ))
     password: (( vault $CREDENTIALS "/redis:password" ))
-
+    port: 3606
 releases:
 - name: redis
   version: 12
@@ -26,7 +26,7 @@ instance_groups:
   - name: redis
     release: redis
     properties:
-      port: 3606
+      port: (( grab meta.service.port ))
   vm_type: default
   stemcell: default
   persistent_disk_type: default
