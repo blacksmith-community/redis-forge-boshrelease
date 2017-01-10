@@ -1,0 +1,5 @@
+check process standalone
+  with pidfile /var/vcap/sys/run/standalone/standalone.pid
+  start program "/var/vcap/jobs/standalone/bin/monit_debugger standalone_ctl '/var/vcap/jobs/standalone/bin/ctl start'"
+  stop program "/var/vcap/jobs/standalone/bin/monit_debugger standalone_ctl '/var/vcap/jobs/standalone/bin/ctl stop'"
+  group vcap

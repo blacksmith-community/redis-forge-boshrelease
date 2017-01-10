@@ -1,0 +1,14 @@
+#!/bin/bash
+set -eu
+
+# Detect # of CPUs so make jobs can be parallelized
+CPUS=$(grep -c ^processor /proc/cpuinfo)
+
+# $BOSH_COMPILE_TARGET - where this package & spec'd source files are available
+# $BOSH_INSTALL_TARGET - where you copy/install files to be included in package
+export HOME=/var/vcap
+
+tar -xzvf redis/redis-3.2.6.tar.gz
+cd redis-3.2.6
+export PREFIX=${BOSH_INSTALL_TARGET}
+make && make install

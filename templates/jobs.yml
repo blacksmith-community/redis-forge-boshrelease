@@ -11,8 +11,11 @@ update:
 jobs:
   - name: just_install_packages
     templates:
-    - name: just_install_packages
+    - name: standalone
       release: redis-forge
+      properties:
+        auth:
+          password: redis
     instances: 1
     persistent_disk: 0
     resource_pool: small_z1
