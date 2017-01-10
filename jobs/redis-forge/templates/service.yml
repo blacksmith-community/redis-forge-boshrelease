@@ -1,7 +1,0 @@
-id: 110797f6-238a-11e6-8fa0-576ad60850a0
-name: redis
-description: bare metal redis
-bindable: true
-tags:
-- keyvalue
-- redis
