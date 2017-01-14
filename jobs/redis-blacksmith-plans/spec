@@ -17,7 +17,7 @@ properties:
 
   service.name:
     description: Human-friendly name for this service, to be displayed in the Cloud Foundry marketplace.
-    default: Redis
+    default: redis
 
   service.description:
     description: A description for this service, to be displayed in the Cloud Foundry marketplace.
