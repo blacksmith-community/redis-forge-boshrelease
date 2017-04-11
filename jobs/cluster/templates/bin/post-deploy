@@ -1,0 +1,95 @@
+#!/bin/bash
+<% if !spec.bootstrap %>log "this node is not the bootstrap node; nothing to do."
+exit 0
+<% else %>set -eu
+exec >&2
+
+function redis() {
+  local ip=$1 ; shift
+  (echo "AUTH <%= p('auth.password') %>"; echo $*) \
+    | /var/vcap/packages/redis/bin/redis-cli -h $ip \
+    | tr -d '\r';
+}
+
+function log() {
+  echo "[$(date)] $*"
+}
+
+<%
+  ips = link('redis').instances.map { |instance| instance.address }
+  masters = ( 0                    .. (p('cluster.masters')-1) ).map { |i| ips[i] }
+  slaves  = ( p('cluster.masters') .. (ips.size - 1)           ).map { |i| ips[i] }.shuffle(random: Random.new(1))
+
+  SLOTS = 16384
+  per   = (SLOTS / masters.size).to_i
+  first = 0
+  last  = first + per - 1
+
+  cluster  = {}
+  masters.each do |master|
+    cluster[master] = []
+    for i in 0 .. (p('cluster.replicas') - 1) do
+      cluster[master] << slaves[i % slaves.size]
+    end
+  end
+
+  def tail(ll,x)
+    l = nil
+    ll.each do |y|
+      if y == x
+        l = []
+      elsif l != nil
+        l << y
+      end
+    end
+    l
+  end
+%>
+<% ips.each do |ip| %>log "found cluster member <%= ip %>:6379"
+<% end %>
+log "checking if clustering is enabled"
+rc=0
+<% ips.each do |ip| %>if ! redis "<%= ip %>" INFO | grep -q '^cluster_enabled:1$'; then
+  log "clustering is NOT enabled on <%= ip %>:6379"
+  rc=1
+fi
+<% end %>[ $rc == 0 ] || exit 1
+log "clustering is enabled on all nodes"
+
+log "checking if clustering is already configured"
+<% ips.each do |ip| %>redis "<%= ip %>" CLUSTER NODES
+<% end %>
+log "clustering is not yet configured"
+
+log "introducing nodes to each other"
+<% ips.each do |a| %><% tail(ips, a).each do |b| %>redis "<%= a %>" CLUSTER MEET <%= b %> 6379
+<% end %><% end %>log "node introductions complete"
+
+# set up the masters
+<% masters.each do |ip| %>redis "<%= ip %>" CLUSTER ADDSLOTS $(seq <%= first %> <%= last %>)
+<% first = last + 1; last = SLOTS - last < per ? SLOTS - 1 : first + per - 1 %><% end %>
+# set up slaves
+<% cluster.each do |master, slaves| %>MASTER=$(redis "<%= master %>" CLUSTER NODES | grep myself | awk '{print $1}')
+<% slaves.each do |slave| %>redis <%= slave %> CLUSTER REPLICATE "$MASTER"
+<% end %><% end %>log "configuration set"
+
+log "waiting for all nodes to be connected to all other nodes"
+n=<%= p('cluster.boot_wait') %>
+while [[ $n -gt 0 ]]; do
+  rc=0
+<% ips.each do |ip| %>  if redis "<%= ip %>" CLUSTER NODES | grep disconnected; then
+    rc=1
+  fi
+<% end %>
+  if [[ $rc == 0 ]]; then
+    log "cluster settled"
+<% ips.each do |ip| %>    redis "<%= ip %>" CLUSTER NODES
+<% end %>
+    exit 0
+  fi
+  sleep 1
+  n=$((n - 1))
+done
+log "timed out after <%= p('cluster.boot_wait') %> seconds, waiting for nodes to connect.  cluster is UNHEALTHY"
+exit 1
+<% end %>

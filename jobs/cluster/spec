@@ -1,0 +1,39 @@
+---
+name: cluster
+packages:
+  - redis
+templates:
+  bin/ctl: bin/ctl
+  bin/post-deploy: bin/post-deploy
+  bin/monit_debugger: bin/monit_debugger
+  config/redis.conf: config/redis.conf
+  data/properties.sh.erb: data/properties.sh
+  helpers/ctl_setup.sh: helpers/ctl_setup.sh
+  helpers/ctl_utils.sh: helpers/ctl_utils.sh
+
+provides:
+  - name: redis
+    type: conn
+    properties:
+      - auth.password
+
+consumes:
+  - name: redis
+    type: conn
+
+properties:
+  auth.password:
+    description: The password required of clients wishing to use this Redis instance.
+
+  cluster.timeout:
+    description: The maximum amount of time (in seconds) a node can be unavailable, without it being considered as failing.
+    default: 15
+  cluster.masters:
+    description: How many master nodes do you want?
+    default: 1
+  cluster.replicas:
+    description: How many replicas should each master node have?
+    default: 2
+  cluster.boot_wait:
+    description: Number of seconds to wait for the cluster to settle, after the initial deploy.
+    default: 20
