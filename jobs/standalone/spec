@@ -13,3 +13,7 @@ templates:
 properties:
   auth.password:
     description: The password required of clients wishing to use this Redis instance.
+
+  persistent:
+    description: Whether or not the Redis dataset should persist to disk (via AOF semantics)
+    default: true

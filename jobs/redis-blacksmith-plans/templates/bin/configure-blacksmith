@@ -38,6 +38,12 @@ cat > $PLANROOT/params.yml <<EOF
 # for plan-id <%= id %> (<%= plan["name"] || id %>)
 meta:
   size: <%= plan["vm_type"] || 'default' %>
+  <% if plan["persist"] %>
+  persistent: true
+  disk: <%= plan["disk"] || 1_024 %>
+  <% else %>
+  persistent: false
+  <% end %>
 EOF
 
 

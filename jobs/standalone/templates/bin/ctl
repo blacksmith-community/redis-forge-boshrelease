@@ -7,6 +7,14 @@ export LANG=en_US.UTF-8
 case $1 in
   start)
     pid_guard $PIDFILE $JOB_NAME
+
+    sysctl vm.overcommit_memory=1
+    echo never > /sys/kernel/mm/transparent_hugepage/enabled
+
+    <% if p('persistent') %>
+    cd /var/vcap/store/standalone
+    <% end %>
+
     echo $$ > $PIDFILE
     exec chpst -u vcap:vcap redis-server \
          $JOB_DIR/config/redis.conf \

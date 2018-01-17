@@ -8,6 +8,11 @@ case $1 in
   start)
     pid_guard $PIDFILE $JOB_NAME
     echo $$ > $PIDFILE
+
+    sysctl vm.overcommit_memory=1
+    echo never > /sys/kernel/mm/transparent_hugepage/enabled
+    cd /var/vcap/store/standalone
+
     exec chpst -u vcap:vcap redis-server \
          $JOB_DIR/config/redis.conf \
          >>$LOG_DIR/$JOB_NAME.log 2>&1

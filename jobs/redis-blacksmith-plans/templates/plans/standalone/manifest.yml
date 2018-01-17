@@ -26,7 +26,7 @@ instance_groups:
     stemcell: default
 
     vm_type: (( grab meta.size ))
-    persistent_disk_type: default
+    persistent_disk: (( grab meta.disk || 0 ))
 
     jobs:
       - name:    standalone
@@ -34,3 +34,4 @@ instance_groups:
         properties:
           auth:
             password: (( grab meta.password ))
+          persistent: (( grab meta.persistent ))
