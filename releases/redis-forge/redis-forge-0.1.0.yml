@@ -1,0 +1,27 @@
+name: redis-forge
+version: 0.1.0
+commit_hash: 6a99666
+uncommitted_changes: false
+jobs:
+- name: cluster
+  version: 26e07d5d1a85518d1b5d801c2d1c9ff86314b024
+  fingerprint: 26e07d5d1a85518d1b5d801c2d1c9ff86314b024
+  sha1: a579072f33cf06f3caedb975ea23930eafb1c3e2
+- name: redis-blacksmith-plans
+  version: 1de2edca8cd1b9e01203fe64e628ba4861e07b51
+  fingerprint: 1de2edca8cd1b9e01203fe64e628ba4861e07b51
+  sha1: ab6c934d81ac1d979d828ec3fa75872d8f476198
+- name: standalone
+  version: deb7b114bc19f1746fdbb6f028bdb20851a01490
+  fingerprint: deb7b114bc19f1746fdbb6f028bdb20851a01490
+  sha1: 0d3958bc6240799e63a7ff954dfd12ee35043ce0
+packages:
+- name: redis
+  version: c9b694ed4defed36dcdf252661cd5780b8009178
+  fingerprint: c9b694ed4defed36dcdf252661cd5780b8009178
+  sha1: 2da961045a18241ac183059447aa519f82fb4ae0
+  dependencies: []
+license:
+  version: bc026dbd2e576cc5bf2acbd3bfe10f626c3abba8
+  fingerprint: bc026dbd2e576cc5bf2acbd3bfe10f626c3abba8
+  sha1: 15dcd19e37fba6107fb01878f3dfd29b313233e9
