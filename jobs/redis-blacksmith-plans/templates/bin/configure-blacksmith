@@ -52,6 +52,10 @@ meta:
   masters:   <%= plan["masters"] %>
   replicas:  <%= plan["replicas"] || 1 %>
   instances: <%= plan["masters"] + plan["masters"] * (plan["replicas"] || 1) %>
+
+  <% if plan["azs"] %>
+  azs: <%= plan["azs"] %>
+  <% end %>
   <% end %>
 EOF
 

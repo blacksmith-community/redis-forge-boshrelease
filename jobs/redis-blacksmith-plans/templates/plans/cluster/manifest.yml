@@ -5,6 +5,8 @@ meta:
   masters:   2
   replicas:  2
   instances: 4
+  default:
+    azs: [z1, z2]
 
 releases:
   - { name: redis-forge, version: latest }
@@ -23,9 +25,9 @@ update:
 instance_groups:
   - name: node
     instances: (( grab meta.instances ))
-    azs: [z1]
     networks:
       - name: redis-service
+    azs: (( grab meta.azs || meta.default.azs ))
     stemcell: default
     vm_type: (( grab meta.size ))
 
