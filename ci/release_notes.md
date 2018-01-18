@@ -1,5 +1,7 @@
 # Improvements
 
+- We have documentation now!
+
 - Kernel tuning has been performed against both standalone and
   clustered deployment types.
 
