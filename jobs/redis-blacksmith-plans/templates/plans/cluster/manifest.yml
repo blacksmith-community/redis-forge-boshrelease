@@ -1,0 +1,41 @@
+---
+meta:
+  size: default
+  password: (( vault $CREDENTIALS "/redis/system:password" ))
+  masters:   2
+  replicas:  2
+  instances: 4
+
+releases:
+  - { name: redis-forge, version: latest }
+
+stemcells:
+- alias: default
+  os: ubuntu-trusty
+  version: latest
+
+update:
+  canaries: 1
+  max_in_flight: 10
+  canary_watch_time: 1000-30000
+  update_watch_time: 1000-30000
+
+instance_groups:
+  - name: node
+    instances: (( grab meta.instances ))
+    azs: [z1]
+    networks:
+      - name: redis-service
+    stemcell: default
+    vm_type: (( grab meta.size ))
+
+    jobs:
+      - name:    cluster
+        release: redis-forge
+        properties:
+          auth:
+            password: (( grab meta.password ))
+
+          cluster:
+            masters:  (( grab meta.masters ))
+            replicas: (( grab meta.replicas ))

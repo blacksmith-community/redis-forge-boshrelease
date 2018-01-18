@@ -11,7 +11,7 @@ case $1 in
 
     sysctl vm.overcommit_memory=1
     echo never > /sys/kernel/mm/transparent_hugepage/enabled
-    cd /var/vcap/store/standalone
+    cd /var/vcap/store/cluster
 
     exec chpst -u vcap:vcap redis-server \
          $JOB_DIR/config/redis.conf \

@@ -9,6 +9,10 @@ templates:
   plans/standalone/credentials.yml: plans/standalone/credentials.yml
   plans/standalone/init:            plans/standalone/init
 
+  plans/cluster/manifest.yml:       plans/cluster/manifest.yml
+  plans/cluster/credentials.yml:    plans/cluster/credentials.yml
+  plans/cluster/init:               plans/cluster/init
+
 
 properties:
   service.id:
