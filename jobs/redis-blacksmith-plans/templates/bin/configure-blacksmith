@@ -38,6 +38,7 @@ cat > $PLANROOT/params.yml <<EOF
 # for plan-id <%= id %> (<%= plan["name"] || id %>)
 meta:
   size: <%= plan["vm_type"] || 'default' %>
+  net:  <%= plan["network"] || 'redis-service' %>
 
   <% if plan["type"] == "standalone" %>
   <% if plan["persist"] %>

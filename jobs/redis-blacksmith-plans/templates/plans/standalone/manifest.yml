@@ -21,8 +21,7 @@ instance_groups:
   - name: standalone
     instances: 1
     azs: [z1]
-    networks:
-      - name: redis-service
+    networks: [name: (( grab meta.net || 'redis-service' ))]
     stemcell: default
 
     vm_type: (( grab meta.size ))

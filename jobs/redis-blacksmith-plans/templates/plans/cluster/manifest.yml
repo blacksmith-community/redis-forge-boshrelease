@@ -25,9 +25,8 @@ update:
 instance_groups:
   - name: node
     instances: (( grab meta.instances ))
-    networks:
-      - name: redis-service
     azs: (( grab meta.azs || meta.default.azs ))
+    networks: [name: (( grab meta.net || 'redis-service' ))]
     stemcell: default
     vm_type: (( grab meta.size ))
 
