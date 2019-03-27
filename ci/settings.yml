@@ -2,7 +2,7 @@
 meta:
   name:    redis-forge
   release: Blacksmith Redis Forge
-  target:  pipes-blacksmith
+  target:  blacksmith@pipes
   url:     https://pipes.starkandwayne.com
 
   manifest:

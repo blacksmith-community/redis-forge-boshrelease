@@ -123,19 +123,18 @@ if [[ -z $(git config --global user.name) ]]; then
 fi
 
 (cd ${REPO_ROOT}
- if [[ -d manifests ]]; then
-   for MANIFEST_PATH in manifests/*.yml; do
-     len=$(wc -l $MANIFEST_PATH | awk '{print $1}')
-     head=$(head -n `expr $len - 4` $MANIFEST_PATH)
-     cat > $MANIFEST_PATH <<EOF
+ shopt -s nullglob
+ for MANIFEST_PATH in manifests/*.yml; do
+   len=$(wc -l $MANIFEST_PATH | awk '{print $1}')
+   head=$(head -n `expr $len - 4` $MANIFEST_PATH)
+   cat > $MANIFEST_PATH <<EOF
 ${head}
 - name:    $RELEASE_NAME
   version: $VERSION
   url:     https://github.com/${GITHUB_OWNER}/${RELEASE_NAME}-boshrelease/releases/download/v${VERSION}/${RELEASE_NAME}-${VERSION}.tgz
   sha1:    $SHA1
 EOF
-   done
- fi
+ done
  git merge --no-edit ${BRANCH}
  git add -A
  git status
