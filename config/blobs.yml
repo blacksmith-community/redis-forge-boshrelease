@@ -1,4 +1,4 @@
-redis/redis-5.0.3.tar.gz:
-  size: 1959445
-  object_id: 3823037e-64fd-4a00-7b5c-2c775af9c6b9
-  sha: a43c24ea6365482323b78e21752d610756efcc39
+redis/redis-5.0.5.tar.gz:
+  size: 1975750
+  object_id: 70ad7080-ecac-4851-782b-4221e72f928a
+  sha: 71e38ae09ac70012b5bc326522b976bcb8e269d6
