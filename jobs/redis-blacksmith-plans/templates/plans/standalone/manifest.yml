@@ -30,9 +30,26 @@ instance_groups:
     persistent_disk: (( grab meta.disk || 0 ))
 
     jobs:
-      - name:    standalone
-        release: redis-forge
+      - release: containers
+        name:    docker
         properties:
-          auth:
-            password: (( grab meta.password ))
-          persistent: (( grab meta.persistent ))
+          recipe:
+            version: '3'
+            services:
+              redis:
+                image: redis
+                ports: ['6379:6379']
+                command: [
+                  - redis-server
+                  - protected-mode
+                  - 'no'
+                  - --appendonly
+                  - 'yes'
+                  - --appendfilename
+                  - redis.aof
+                  - appendfsync
+                  - everysec
+                  - --requirepass
+                  - (( grab meta.password ))
+                volumes:
+                  - '/var/vcap/store/redis:/data'
