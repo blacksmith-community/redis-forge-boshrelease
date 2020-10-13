@@ -232,6 +232,17 @@ instance_groups:
               replicas: 2
 ```
 
+## CF create-service configuration parameters
+App developers can customize the following parameters. See the [Redis documentation](https://redis.io/topics/config) for more detail. In particular, look at the self documented redis.conf file for your deployed Redis version.
+
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Property&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Options | Description |
+|----------|---------|---------| ----------- |
+| **maxmemory-policy** | allkeys-lru	| allkeys-lru, noeviction, volatile-lru, allkeys-random, volatile-ttl, volatile-lfu, allkeys-lfu | Sets the behavior Redis follows when *maxmemory* is reached |
+| **notify-keyspace-events** | “” | Set a combination of the following characters<br/> (e.g., *“Elg”*):<br/> K, E, g, $, l, s, h, z, x, e, A | Sets the keyspace notifications for events that affect the Redis data set |
+| **slowlog-log-slower-than** | 10000 | 0-20000 | Sets the threshhold execution time (seconds). Commands that exceed this execution time are added to the slowlog. |
+| **slowlog-max-len** | 128 | 1-2024 | Sets the length (count) of the slowlog queue.|
+
+
 ## Contributing
 
 If you find a bug, please raise a [Github Issue][1] first,
