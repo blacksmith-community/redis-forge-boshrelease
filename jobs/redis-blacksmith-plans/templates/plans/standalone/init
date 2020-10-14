@@ -1,6 +1,32 @@
 #!/bin/bash
 set -eu
 
+DATADIR="${DATADIR:-/var/vcap/jobs/redis-blacksmith-plans/plans/standalone/data}"
+CREDENTIALS=${CREDENTIALS:-"secret/test"}
+BLACKSMITH_PLAN=${BLACKSMITH_PLAN:-plannotset}
+BLACKSMITH_WORKDIR="${WORKDIR:-/tmp}"
+BLACKSMITH_INSTANCE_DATA_DIR="${BLACKSMITH_INSTANCE_DATA_DIR:-/var/vcap/data/redis-blacksmith-plans/}"
+BLACKSMITH_INSTANCE_PLAN_DIR="${BLACKSMITH_INSTANCE_PLAN_DIR:-/var/vcap/data/${BLACKSMITH_PLAN}/}"
+
+TMPDIR="${TMPDIR:-/tmp}"
+RAWJSONFILE="${RAWJSONFILE:-/tmp/rawjsonfile}"
+YAMLFILE="${YAMLFILE:-/tmp/yamlfile}"
+TEMPLATEFILE="${TEMPLATEFILE:-${TMPDIR}/template.$$.yml}"
+APPLICATIONFILE="${APPLICATIONFILE:-${TMPDIR}/application.$$.yml}"
+WRAPPERFILE="${WRAPPERFILE:-${TMPDIR}/wrapper.$$.yml}"
+REDISLOCALCONF="${REDISLOCALCONF:-}"
+DATADIR="${DATADIR:-data}"
+REDISDIR="${DATADIR}/redis"
+LOCALCONFTEMPLATE="${BLACKSMITH_INSTANCE_PLAN_DIR}/data/local.conf"
+LOCALCONF="${BLACKSMITH_INSTANCE_PLAN_DIR}/conf/local.conf"
+
 safe gen $CREDENTIALS/redis/system password
+
+cp "${LOCALCONFTEMPLATE}" "${LOCALCONF}"
+
+if [[ -s "${RAWJSONFILE}" && $(jq '.|type == "object" and length > 0' "${RAWJSONFILE}") == 'true' ]]; then 
+  jq -r 'to_entries[] | "\(.key)   \(.value| if type == "string" and length == 0 then "\"\"" else . end )"' "${RAWJSONFILE}" >> "${LOCALCONF}"
+fi
+
 
 exit 0
