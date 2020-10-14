@@ -242,7 +242,6 @@ App developers can customize the following parameters. See the [Redis documentat
 | **slowlog-log-slower-than** | 10000 | 0-20000 | Sets the threshhold execution time (seconds). Commands that exceed this execution time are added to the slowlog. |
 | **slowlog-max-len** | 128 | 1-2024 | Sets the length (count) of the slowlog queue.|
 
-
 ## Contributing
 
 If you find a bug, please raise a [Github Issue][1] first,
