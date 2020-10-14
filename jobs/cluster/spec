@@ -7,6 +7,7 @@ templates:
   bin/post-deploy: bin/post-deploy
   bin/monit_debugger: bin/monit_debugger
   config/redis.conf: config/redis.conf
+  data/local.conf: data/local.conf
   data/properties.sh.erb: data/properties.sh
   helpers/ctl_setup.sh: helpers/ctl_setup.sh
   helpers/ctl_utils.sh: helpers/ctl_utils.sh
