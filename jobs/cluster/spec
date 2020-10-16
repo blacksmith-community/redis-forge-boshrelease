@@ -7,7 +7,6 @@ templates:
   bin/post-deploy: bin/post-deploy
   bin/monit_debugger: bin/monit_debugger
   config/redis.conf: config/redis.conf
-  data/local.conf: data/local.conf
   data/properties.sh.erb: data/properties.sh
   helpers/ctl_setup.sh: helpers/ctl_setup.sh
   helpers/ctl_utils.sh: helpers/ctl_utils.sh
@@ -38,3 +37,42 @@ properties:
   cluster.boot_wait:
     description: Number of seconds to wait for the cluster to settle, after the initial deploy.
     default: 20
+  
+  client.connections:
+    description: Set the max number of connected clients at the same time
+    default: 10000 
+
+  client.timeout:
+    description: Set the max number of connected clients at the same time
+    default: 0 
+
+  client.tcpkeepalive:
+    description: If non-zero, use SO_KEEPALIVE to send TCP ACKs to clients in absence of communication
+    default: 300
+
+  redis.maxmemory-policy:
+    description: |
+      Sets the behavior Redis follows when maxmemory is reached.
+      allkeys-lru, noeviction, volatile-lru,
+      allkeys-random, volatile-ttl, volatile-lfu, allkeys-lfu
+
+    default: "allkeys-lru"
+
+  redis.notify-keyspace-events:
+    description: |
+      Sets the keyspace notifications for events that 
+      affect the Redis data set
+
+    default: ""
+
+  redis.slowlog-log-slower-than:
+    description: |
+      Sets the threshhold execution time (seconds).
+      Commands that exceed this execution time are added
+      to the slowlog.
+
+    default: 10000
+
+  redis.slowlog-max-len:
+    description: Sets the length (count) of the slowlog queue.
+    default: 128
