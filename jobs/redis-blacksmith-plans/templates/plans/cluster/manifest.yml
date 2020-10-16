@@ -40,3 +40,12 @@ instance_groups:
           cluster:
             masters:  (( grab meta.masters ))
             replicas: (( grab meta.replicas ))
+          redis:
+            maxmemory-policy: (( grab meta.params.maxmemory-policy || "allkeys-lru" ))
+            notify-keyspace-events: (( grab meta.params.notify-keyspace-events || "" ))
+            slowlog-log-slower-than: (( grab meta.params.slowlog-log-slower-than: || 10000 ))
+            slowlog-max-len: (( grab meta.params.slowlog-max-len || 128 ))
+          client:
+            timeout: (( grab client.timeout || 0 ))
+            tcpkeepalive: (( grab meta.client.tcpkeepalive || 300 ))
+            connections: (( grab meta.client.connections || 10000 ))
