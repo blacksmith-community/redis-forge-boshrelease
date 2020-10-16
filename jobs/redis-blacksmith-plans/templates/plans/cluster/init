@@ -1,17 +1,7 @@
 #!/bin/bash
 set -eu
 
-DATADIR="${DATADIR:-/var/vcap/jobs/redis-blacksmith-plans/plans/standalone/data}"
 CREDENTIALS=${CREDENTIALS:-"secret/test"}
-BLACKSMITH_WORKDIR="${WORKDIR:-/tmp}"
-TMPDIR="${TMPDIR:-/tmp}"
-RAWJSONFILE="${RAWJSONFILE:-/tmp/rawjsonfile}"
-YAMLFILE="${YAMLFILE:-/tmp/yamlfile}"
-TEMPLATEFILE="${TEMPLATEFILE:-${TMPDIR}/template.$$.yml}"
-APPLICATIONFILE="${APPLICATIONFILE:-${TMPDIR}/application.$$.yml}"
-WRAPPERFILE="${WRAPPERFILE:-${TMPDIR}/wrapper.$$.yml}"
-DATADIR="${DATADIR:-data}"
-REDISDIR="${DATADIR}/redis"
 
 safe gen $CREDENTIALS/redis/system password
 
