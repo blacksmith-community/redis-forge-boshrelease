@@ -18,3 +18,42 @@ properties:
   persistent:
     description: Whether or not the Redis dataset should persist to disk (via AOF semantics)
     default: true
+  
+  client.connections:
+    description: Set the max number of connected clients at the same time
+    default: 10000 
+
+  client.timeout:
+    description: Set the max number of connected clients at the same time
+    default: 0 
+
+  client.tcpkeepalive:
+    description: If non-zero, use SO_KEEPALIVE to send TCP ACKs to clients in absence of communication
+    default: 300
+
+  redis.maxmemory-policy:
+    description: |
+      Sets the behavior Redis follows when maxmemory is reached.
+      allkeys-lru, noeviction, volatile-lru,
+      allkeys-random, volatile-ttl, volatile-lfu, allkeys-lfu
+
+    default: "allkeys-lru"
+
+  redis.notify-keyspace-events:
+    description: |
+      Sets the keyspace notifications for events that 
+      affect the Redis data set
+
+    default: ""
+
+  redis.slowlog-log-slower-than:
+    description: |
+      Sets the threshhold execution time (seconds).
+      Commands that exceed this execution time are added
+      to the slowlog.
+
+    default: 10000
+
+  redis.slowlog-max-len:
+    description: Sets the length (count) of the slowlog queue.
+    default: 128
