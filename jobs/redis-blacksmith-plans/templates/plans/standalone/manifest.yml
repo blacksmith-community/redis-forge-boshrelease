@@ -39,7 +39,7 @@ instance_groups:
           redis:
             maxmemory-policy: (( grab meta.params.maxmemory-policy || "allkeys-lru" ))
             notify-keyspace-events: (( grab meta.params.notify-keyspace-events || "" ))
-            slowlog-log-slower-than: (( grab meta.params.slowlog-log-slower-than: || 10000 ))
+            slowlog-log-slower-than: (( grab meta.params.slowlog-log-slower-than || 10000 ))
             slowlog-max-len: (( grab meta.params.slowlog-max-len || 128 ))
           client:
             timeout: (( grab client.timeout || 0 ))
