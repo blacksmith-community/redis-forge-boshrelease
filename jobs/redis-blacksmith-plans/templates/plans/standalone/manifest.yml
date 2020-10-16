@@ -23,7 +23,7 @@ instance_groups:
   - name: standalone
     instances: 1
     azs: [(( grab meta.az || meta.default.az ))]
-    networks: [name: (( grab meta.net || 'redis-service' ))]
+    networks: [name: (( grab meta.net || "redis-service" ))]
     stemcell: default
 
     vm_type: (( grab meta.size ))
