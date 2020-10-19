@@ -46,6 +46,6 @@ instance_groups:
             slowlog-log-slower-than: (( grab meta.params.slowlog-log-slower-than || 10000 ))
             slowlog-max-len: (( grab meta.params.slowlog-max-len || 128 ))
           client:
-            timeout: (( grab client.timeout || 0 ))
+            timeout: (( grab meta.client.timeout || 0 ))
             tcpkeepalive: (( grab meta.client.tcpkeepalive || 300 ))
             connections: (( grab meta.client.connections || 10000 ))
