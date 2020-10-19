@@ -254,7 +254,6 @@ before submitting a PR.
 [broker]: https://github.com/cloudfoundry-community/blacksmith
 [redis]:  https://redis.io
 
-(setq markdown-xhtml-header-content
-      "<style type='text/css'>
+<style type='text/css'>
 td strong, td em { white-space: nowrap; }
-</style>")
+</style>
