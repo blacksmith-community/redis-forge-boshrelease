@@ -248,12 +248,6 @@ If you find a bug, please raise a [Github Issue][1] first,
 before submitting a PR.
 
 
-
-
 [1]: https://github.com/blacksmith-community/redis-forge-boshrelease/issues
 [broker]: https://github.com/cloudfoundry-community/blacksmith
 [redis]:  https://redis.io
-
-<style type='text/css'>
-td strong, td em { white-space: nowrap; }
-</style>
