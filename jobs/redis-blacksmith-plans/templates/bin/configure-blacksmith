@@ -40,6 +40,15 @@ meta:
   size: <%= plan["vm_type"] || 'default' %>
   net:  <%= plan["network"] || 'redis-service' %>
 
+  <% if plan["client_timeout"] %>
+  client_timeout: <%= plan["client_timeout"] %>
+  <% end %>
+  <% if plan["client_tcpkeepalive"] %>
+  client_tcpkeepalive: <%= plan["client_tcpkeepalive"] %>
+  <% end %>
+  <% if plan["client_connections"] %>
+  client_connections: <%= plan["client_connections"] %>
+  <% end %>
   <% if plan["type"] == "standalone" %>
   <% if plan["persist"] %>
   persistent: true
