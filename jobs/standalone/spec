@@ -18,12 +18,16 @@ properties:
     description: Whether or not the Redis dataset should persist to disk (via AOF semantics)
     default: true
   
+  lua.scripting-enabled:
+    description: Whether or not to allow lua scripting.
+    default: true
+  
   client.connections:
     description: Set the max number of connected clients at the same time
     default: 10000 
 
   client.timeout:
-    description: Set the max number of connected clients at the same time
+    description: Close the connection after a client is idle for N seconds (0 to disable)
     default: 0 
 
   client.tcpkeepalive:
