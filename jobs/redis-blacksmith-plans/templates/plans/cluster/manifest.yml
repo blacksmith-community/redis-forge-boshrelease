@@ -46,7 +46,7 @@ instance_groups:
             slowlog-log-slower-than: (( grab meta.params.slowlog-log-slower-than || 10000 ))
             slowlog-max-len: (( grab meta.params.slowlog-max-len || 128 ))
           lua:
-            scripting-enabled: (( grab meta.lua_scripting_enabled | true ))
+            scripting-enabled: (( grab meta.lua_scripting_enabled || true ))
           client:
             timeout: (( grab meta.client_timeout || 0 ))
             tcpkeepalive: (( grab meta.client_tcpkeepalive || 300 ))
