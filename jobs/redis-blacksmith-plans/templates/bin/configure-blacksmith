@@ -60,6 +60,18 @@ meta:
   redis_slowlog-max-len: <%= plan["redis_slowlog-max-len"] %>
   <% end %>
 
+  <% if plan["redis_no-appendfsync-on-rewrite"'] %>
+  redis_no-appendfsync-on-rewrite <%= plan["redis_no-appendfsync-on-rewrite"] %>
+  <% end %>
+
+  <% if plan["redis_auto-aof-rewrite-percentage"] %>
+  redis_auto-aof-rewrite-percentage: <%= plan["redis_auto-aof-rewrite-percentage"] %>
+  <% end %>
+
+  <% if plan["redis_auto-aof-rewrite-min-size"] %>
+  redis_auto-aof-rewrite-min-size: <%= plan["redis_auto-aof-rewrite-min-size"] %>
+  <% end %>
+
   <% if plan["client_timeout"] %>
   client_timeout: <%= plan["client_timeout"] %>
   <% end %>

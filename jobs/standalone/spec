@@ -74,3 +74,16 @@ properties:
   redis.slowlog-max-len:
     description: Sets the length (count) of the slowlog queue.
     default: 128
+
+  redis.no-appendfsync-on-rewrite:
+    description: If you have latency problems turn this to "yes". Otherwise leave it as "no"
+
+    default "no"
+
+  redis.auto-aof-rewrite-percentage:
+    description: Modify the percentage for auto append on rewrite.
+    default: 100
+
+  redis.auto-aof-rewrite-min-size:
+    description: Modify the minimum file size  for auto append on rewrite.
+    default: "64mb"
