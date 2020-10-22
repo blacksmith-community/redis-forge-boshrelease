@@ -77,8 +77,7 @@ properties:
 
   redis.no-appendfsync-on-rewrite:
     description: If you have latency problems turn this to "yes". Otherwise leave it as "no"
-
-    default "no"
+    default: "no"
 
   redis.auto-aof-rewrite-percentage:
     description: Modify the percentage for auto append on rewrite.
