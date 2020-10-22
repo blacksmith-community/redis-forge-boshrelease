@@ -60,7 +60,7 @@ meta:
   redis_slowlog-max-len: <%= plan["redis_slowlog-max-len"] %>
   <% end %>
 
-  <% if plan["redis_no-appendfsync-on-rewrite"'] %>
+  <% if plan["redis_no-appendfsync-on-rewrite"] %>
   redis_no-appendfsync-on-rewrite <%= plan["redis_no-appendfsync-on-rewrite"] %>
   <% end %>
 
