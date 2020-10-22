@@ -54,6 +54,20 @@ properties:
     description: If non-zero, use SO_KEEPALIVE to send TCP ACKs to clients in absence of communication
     default: 300
 
+  redis.maxmemory:
+    description: |
+       Set a memory usage limit to the specified amount of bytes.
+       Memory units may be specified when specifying bytes.
+       1k => 1000 bytes
+       1kb => 1024 bytes
+       1m => 1000000 bytes
+       1mb => 1024*1024 bytes
+       1g => 1000000000 bytes
+       1gb => 1024*1024*1024 bytes
+       units are case insensitive so 1GB 1Gb 1gB are all the same.
+
+    default: 0
+
   redis.maxmemory-policy:
     description: |
       Sets the behavior Redis follows when maxmemory is reached.

@@ -40,6 +40,26 @@ meta:
   size: <%= plan["vm_type"] || 'default' %>
   net:  <%= plan["network"] || 'redis-service' %>
 
+  <% if plan["redis_maxmemory-policy"] %>
+  redis_maxmemory-policy: <%= plan["redis_maxmemory-policy"] %>
+  <% end %>
+
+  <% if plan["redis_maxmemory"] %>
+  redis_maxmemory: <%= plan["redis_maxmemory"] %>
+  <% end %>
+
+  <% if plan["redis_notify-keyspace-events"] %>
+  redis_notify-keyspace-events: <%= plan["redis_notify-keyspace-events"] %>
+  <% end %>
+
+  <% if plan["redis_slowlog-log-slower-than"] %>
+  redis_slowlog-log-slower-than: <%= plan["redis_slowlog-log-slower-than"] %>
+  <% end %>
+
+  <% if plan["redis_slowlog-max-len"] %>
+  redis_slowlog-max-len: <%= plan["redis_slowlog-max-len"] %>
+  <% end %>
+
   <% if plan["client_timeout"] %>
   client_timeout: <%= plan["client_timeout"] %>
   <% end %>

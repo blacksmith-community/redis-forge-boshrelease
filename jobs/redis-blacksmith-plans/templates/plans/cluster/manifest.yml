@@ -41,10 +41,11 @@ instance_groups:
             masters:  (( grab meta.masters ))
             replicas: (( grab meta.replicas ))
           redis:
-            maxmemory-policy: (( grab meta.params.maxmemory-policy || "allkeys-lru" ))
-            notify-keyspace-events: (( grab meta.params.notify-keyspace-events || "" ))
-            slowlog-log-slower-than: (( grab meta.params.slowlog-log-slower-than || 10000 ))
-            slowlog-max-len: (( grab meta.params.slowlog-max-len || 128 ))
+            maxmemory-policy: (( grab meta.params.maxmemory-policy || meta.redis_maxmemory-policy || "allkeys-lru" ))
+            notify-keyspace-events: (( grab meta.params.notify-keyspace-events || meta.redis_notify-keyspace-events || "" ))
+            slowlog-log-slower-than: (( grab meta.params.slowlog-log-slower-than || meta.redis_slowlog-log-slower-than || 10000 ))
+            slowlog-max-len: (( grab meta.params.slowlog-max-len || meta.redis_slowlog-max-len || 128 ))
+            maxmemory: (( grab meta.redis_maxmemory || 0 ))
           lua:
             scripting-enabled: (( grab meta.lua_scripting_enabled || true ))
           client:
