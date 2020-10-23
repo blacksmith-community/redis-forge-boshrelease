@@ -81,10 +81,8 @@ meta:
   <% if plan["client_connections"] %>
   client_connections: <%= plan["client_connections"] %>
   <% end %>
-  <% if plan["lua_scripting_enabled"] %>
-  lua_scripting_enabled: true
-  <% else %>
-  lua_scripting_enabled: false
+  <% if plan.has_key?("lua_scripting_enabled") %>
+  lua_scripting_enabled: <%= plan["lua_scripting_enabled"] %>
   <% end %>
   <% if plan["azs"] %>
   azs: <%= plan["azs"] %>
