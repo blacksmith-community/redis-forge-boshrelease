@@ -46,7 +46,7 @@ instance_groups:
             slowlog-log-slower-than: (( grab meta.params.slowlog-log-slower-than || meta.redis_slowlog-log-slower-than || 10000 ))
             slowlog-max-len: (( grab meta.params.slowlog-max-len || meta.redis_slowlog-max-len || 128 ))
             maxmemory: (( grab meta.redis_maxmemory || 0 ))
-            no-appendfsync-on-rewrite: (( grab meta.redis_no-appendfsync-on-rewrite || "no" ))
+            no-appendfsync-on-rewrite: (( grab meta.redis_no-appendfsync-on-rewrite || false ))
             auto-aof-rewrite-percentage: (( grab meta.redis_auto-aof-rewrite-percentage || 100 ))
             auto-aof-rewrite-min-size: (( grab meta.redis_auto-aof-rewrite-min-size || "64mb" ))
           lua:

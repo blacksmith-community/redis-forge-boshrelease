@@ -258,7 +258,7 @@ Some of these parameters may dependent on other parameters
 | redis.notify-keyspace-events | Sets the keyspace notifications for events that affect the Redis data set | "" | |
 | redis.slowlog-log-slower-than | Sets the threshhold execution time (seconds).  Commands that exceed this execution time are added to the slowlog.| 10000 | |
 | redis.slowlog-max-len | Sets the length (count) of the slowlog queue. | 128 | |
-|  redis.no-appendfsync-on-rewrite | If you have latency problems turn this to "yes". Otherwise leave it as "no" | "no" | This parameter is allowed only if the *persistent* is set true |
+|  redis.no-appendfsync-on-rewrite | If you have latency problems turn this to true. Otherwise leave it as false | false | This parameter is allowed only if the *persistent* is set true |
 |  redis.auto-aof-rewrite-percentage | Modify the percentage for auto append on rewrite. | 100 | This parameter is allowed only if the *persistent* is set true |
 |  redis.auto-aof-rewrite-min-size: | Modify the minimum file size  for auto append on rewrite. | 64mb | This parameter is allowed only if the *persistent* is set true |
 
