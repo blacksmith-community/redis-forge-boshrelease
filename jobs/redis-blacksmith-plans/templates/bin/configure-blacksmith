@@ -60,8 +60,8 @@ meta:
   redis_slowlog-max-len: <%= plan["redis_slowlog-max-len"] %>
   <% end %>
 
-  <% if plan["redis_no-appendfsync-on-rewrite"] %>
-  redis_no-appendfsync-on-rewrite <%= plan["redis_no-appendfsync-on-rewrite"] %>
+  <% if plan.has_key?("redis_no-appendfsync-on-rewrite") %>
+  redis_no-appendfsync-on-rewrite: <%= plan["redis_no-appendfsync-on-rewrite"] ? "yes" : "no" %>
   <% end %>
 
   <% if plan["redis_auto-aof-rewrite-percentage"] %>
@@ -81,10 +81,8 @@ meta:
   <% if plan["client_connections"] %>
   client_connections: <%= plan["client_connections"] %>
   <% end %>
-  <% if plan["lua_scripting_enabled"] %>
-  lua_scripting_enabled: true
-  <% else %>
-  lua_scripting_enabled: false
+  <% if plan.has_key?("lua_scripting_enabled") %>
+  lua_scripting_enabled: <%= plan["lua_scripting_enabled"] %>
   <% end %>
   <% if plan["type"] == "standalone" %>
   <% if plan["persist"] %>
