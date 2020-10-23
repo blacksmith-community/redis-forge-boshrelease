@@ -235,7 +235,6 @@ instance_groups:
 ## Redis Hard Coded Redis Configuration Parameters
 
 For security reasons the following Redis commands have been disabled in all plan types. 
-This avoids Redis users from overriding the predefined Redis plan parameters.
 1. DEBUG
 1. CONFIG
 1. SHUTDOWN
