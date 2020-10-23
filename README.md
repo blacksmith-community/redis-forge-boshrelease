@@ -231,8 +231,48 @@ instance_groups:
               masters:  1
               replicas: 2
 ```
+## Redis Hard Coded Redis Configuration Parameters
 
-## CF create-service configuration parameters
+For security reasons the following Redis commands have been disabled in all plan types. 
+This avoids Redis users from overriding the predefined Redis plan parameters.
+1. DEBUG
+1. CONFIG
+1. SHUTDOWN
+1. SYNC
+1. SLAVEOF
+
+## Redis Configuration Plan Parameters
+
+These Redis configuration parameters can be used when plans are created during forge deployment. 
+Some of these parameters may dependent on other parameters
+
+| Parameter | Description | Default | Notes |
+| --------- | ----------- | ------- | ----- |
+| auth.password | The password required of clients wishing to use this Redis instance. | | |
+| persistent | Whether or not the Redis dataset should persist to disk (via AOF semantics) | true | |
+| lua.scripting-enabled | Whether or not to allow lua scripting. | true | |
+| client.connections | Set the max number of connected clients at the same time | 10000 | |
+| client.timeout | Close the connection after a client is idle for N seconds | 0 | 0 = disable |
+| client.tcpkeepalive | If non-zero, use SO_KEEPALIVE to send TCP ACKs to clients in absence of communication | 300 | |
+| redis.maxmemory | Set a memory usage limit to the specified amount of bytes. | 0 | 0 = VM limit |
+|  redis.maxmemory-policy | Sets the behavior Redis follows when maxmemory is reached. | allkeys-lru, |allkeys-lru, noeviction, volatile-lru, allkeys-random, volatile-ttl, volatile-lfu, allkeys-lfu |
+| redis.notify-keyspace-events | Sets the keyspace notifications for events that affect the Redis data set | "" | |
+| redis.slowlog-log-slower-than | Sets the threshhold execution time (seconds).  Commands that exceed this execution time are added to the slowlog.| 10000 | |
+| redis.slowlog-max-len | Sets the length (count) of the slowlog queue. | 128 | |
+|  redis.no-appendfsync-on-rewrite | If you have latency problems turn this to "yes". Otherwise leave it as "no" | "no" | This parameter is allowed only if the *persistent* is set true |
+|  redis.auto-aof-rewrite-percentage | Modify the percentage for auto append on rewrite. | 100 | This parameter is allowed only if the *persistent* is set true |
+|  redis.auto-aof-rewrite-min-size: | Modify the minimum file size  for auto append on rewrite. | 64mb | This parameter is allowed only if the *persistent* is set true |
+
+   Memory units may be specified when specifying bytes.  
+   1k => 1000 bytes  
+   1kb => 1024 bytes  
+   1m => 1000000 bytes  
+   1mb => 1024\*1024 bytes  
+   1g => 1000000000 bytes  
+   1gb => 1024\*1024\*1024 bytes  
+   units are case insensitive so 1GB 1Gb 1gB are all the same.
+
+## CF Create Service Configuration Parameters
 App developers can customize the following parameters. See the [Redis documentation](https://redis.io/topics/config) for more detail. In particular, look at the self documented redis.conf file for your deployed Redis version.
 
 |                Property                 | Default | Options | Description |
