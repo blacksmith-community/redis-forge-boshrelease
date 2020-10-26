@@ -1,4 +1,4 @@
-redis/redis-5.0.7.tar.gz:
-  size: 1984203
-  object_id: b75250b3-6166-49a7-7eed-dafd385cc817
-  sha: sha256:61db74eabf6801f057fd24b590232f2f337d422280fd19486eca03be87d3a82b
+redis/redis-5.0.9.tar.gz:
+  size: 1986574
+  object_id: d7f88dae-02d2-465f-70c0-87a946fabd7d
+  sha: sha256:53d0ae164cd33536c3d4b720ae9a128ea6166ebf04ff1add3b85f1242090cb85
