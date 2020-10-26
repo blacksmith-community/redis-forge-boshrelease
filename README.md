@@ -249,18 +249,18 @@ Some of these parameters may dependent on other parameters
 | --------- | ----------- | ------- | ----- |
 | auth.password | The password required of clients wishing to use this Redis instance. | | |
 | persistent | Whether or not the Redis dataset should persist to disk (via AOF semantics) | true | |
-| lua.scripting-enabled | Whether or not to allow lua scripting. | true | |
-| client.connections | Set the max number of connected clients at the same time | 10000 | |
-| client.timeout | Close the connection after a client is idle for N seconds | 0 | 0 = disable |
-| client.tcpkeepalive | If non-zero, use SO_KEEPALIVE to send TCP ACKs to clients in absence of communication | 300 | |
-| redis.maxmemory | Set a memory usage limit to the specified amount of bytes. | 0 | 0 = VM limit |
-|  redis.maxmemory-policy | Sets the behavior Redis follows when maxmemory is reached. | allkeys-lru, |allkeys-lru, noeviction, volatile-lru, allkeys-random, volatile-ttl, volatile-lfu, allkeys-lfu |
-| redis.notify-keyspace-events | Sets the keyspace notifications for events that affect the Redis data set | "" | |
-| redis.slowlog-log-slower-than | Sets the threshhold execution time (seconds).  Commands that exceed this execution time are added to the slowlog.| 10000 | |
-| redis.slowlog-max-len | Sets the length (count) of the slowlog queue. | 128 | |
-|  redis.no-appendfsync-on-rewrite | If you have latency problems turn this to true. Otherwise leave it as false | false | This parameter is allowed only if the *persistent* is set true |
-|  redis.auto-aof-rewrite-percentage | Modify the percentage for auto append on rewrite. | 100 | This parameter is allowed only if the *persistent* is set true |
-|  redis.auto-aof-rewrite-min-size: | Modify the minimum file size  for auto append on rewrite. | 64mb | This parameter is allowed only if the *persistent* is set true |
+| lua_scripting-enabled | Whether or not to allow lua scripting. | true | |
+| client_connections | Set the max number of connected clients at the same time | 10000 | |
+| client_timeout | Close the connection after a client is idle for N seconds | 0 | 0 = disable |
+| client_tcpkeepalive | If non-zero, use SO_KEEPALIVE to send TCP ACKs to clients in absence of communication | 300 | |
+| redis_maxmemory | Set a memory usage limit to the specified amount of bytes. | 0 | 0 = VM limit |
+|  redis_maxmemory-policy | Sets the behavior Redis follows when maxmemory is reached. | allkeys-lru, |allkeys-lru, noeviction, volatile-lru, allkeys-random, volatile-ttl, volatile-lfu, allkeys-lfu |
+| redis_notify-keyspace-events | Sets the keyspace notifications for events that affect the Redis data set | "" | |
+| redis_slowlog-log-slower-than | Sets the threshhold execution time (seconds).  Commands that exceed this execution time are added to the slowlog.| 10000 | |
+| redis_slowlog-max-len | Sets the length (count) of the slowlog queue. | 128 | |
+|  redis_no-appendfsync-on-rewrite | If you have latency problems turn this to true. Otherwise leave it as false | false | This parameter is allowed only if the *persistent* is set true |
+|  redis_auto-aof-rewrite-percentage | Modify the percentage for auto append on rewrite. | 100 | This parameter is allowed only if the *persistent* is set true |
+|  redis_auto-aof-rewrite-min-size: | Modify the minimum file size  for auto append on rewrite. | 64mb | This parameter is allowed only if the *persistent* is set true |
 
    Memory units may be specified when specifying bytes.  
    1k => 1000 bytes  
