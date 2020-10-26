@@ -1,0 +1,32 @@
+name: redis-forge
+version: 0.4.4
+commit_hash: 84be03b
+uncommitted_changes: false
+jobs:
+- name: cluster
+  version: 4ff739bf4c3d29a0ad32c25d100e932c9b5b9b7fbf54db2b9e263b5414631c2f
+  fingerprint: 4ff739bf4c3d29a0ad32c25d100e932c9b5b9b7fbf54db2b9e263b5414631c2f
+  sha1: sha256:fde7b25c8ee1459f943937b358712f00bc9119d23f4a8df08a4cfc11a6552443
+  packages:
+  - redis
+- name: redis-blacksmith-plans
+  version: 19965b5e575eda4c30aa304deff65abf9c4edf3e29b5b42a293ae337f626d99e
+  fingerprint: 19965b5e575eda4c30aa304deff65abf9c4edf3e29b5b42a293ae337f626d99e
+  sha1: sha256:b364de42d543aed8093c0975110f671f4f8e6f5dfd741525fcc9fb38c07c44b4
+  packages: []
+- name: standalone
+  version: e496c8bb57a92e993d870fccfa59f66482d7f0eb2aee0042759d4beccf12a5ac
+  fingerprint: e496c8bb57a92e993d870fccfa59f66482d7f0eb2aee0042759d4beccf12a5ac
+  sha1: sha256:14ae7026a4806bc68a21cc5a782aa7213f8a1860d08c07328caa7fefd6201e49
+  packages:
+  - redis
+packages:
+- name: redis
+  version: 38fdb7b17db0d411cbe215fb821154630f1e481835ce351bd7a9a87510a4042b
+  fingerprint: 38fdb7b17db0d411cbe215fb821154630f1e481835ce351bd7a9a87510a4042b
+  sha1: sha256:d2759bad0470b3c99eaba59f82e51bffafd2afaa4c92c0e328152f7020bb9d0f
+  dependencies: []
+license:
+  version: 2ddf44a51ba997973997ce5343ce1bdc8ee0d1bce5c91d6f0db4fb1386a58cb1
+  fingerprint: 2ddf44a51ba997973997ce5343ce1bdc8ee0d1bce5c91d6f0db4fb1386a58cb1
+  sha1: sha256:1cdbc5f984b80710798e07a1b285d3fbbbc05d2c9b2c27e3f35f12a809a93ef9
