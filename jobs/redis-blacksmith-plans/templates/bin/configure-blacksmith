@@ -40,6 +40,50 @@ meta:
   size: <%= plan["vm_type"] || 'default' %>
   net:  <%= plan["network"] || 'redis-service' %>
 
+  <% if plan["redis_maxmemory-policy"] %>
+  redis_maxmemory-policy: <%= plan["redis_maxmemory-policy"] %>
+  <% end %>
+
+  <% if plan["redis_maxmemory"] %>
+  redis_maxmemory: <%= plan["redis_maxmemory"] %>
+  <% end %>
+
+  <% if plan["redis_notify-keyspace-events"] %>
+  redis_notify-keyspace-events: <%= plan["redis_notify-keyspace-events"] %>
+  <% end %>
+
+  <% if plan["redis_slowlog-log-slower-than"] %>
+  redis_slowlog-log-slower-than: <%= plan["redis_slowlog-log-slower-than"] %>
+  <% end %>
+
+  <% if plan["redis_slowlog-max-len"] %>
+  redis_slowlog-max-len: <%= plan["redis_slowlog-max-len"] %>
+  <% end %>
+
+  <% if plan.has_key?("redis_no-appendfsync-on-rewrite") %>
+  redis_no-appendfsync-on-rewrite: <%= plan["redis_no-appendfsync-on-rewrite"] ? "yes" : "no" %>
+  <% end %>
+
+  <% if plan["redis_auto-aof-rewrite-percentage"] %>
+  redis_auto-aof-rewrite-percentage: <%= plan["redis_auto-aof-rewrite-percentage"] %>
+  <% end %>
+
+  <% if plan["redis_auto-aof-rewrite-min-size"] %>
+  redis_auto-aof-rewrite-min-size: <%= plan["redis_auto-aof-rewrite-min-size"] %>
+  <% end %>
+
+  <% if plan["client_timeout"] %>
+  client_timeout: <%= plan["client_timeout"] %>
+  <% end %>
+  <% if plan["client_tcpkeepalive"] %>
+  client_tcpkeepalive: <%= plan["client_tcpkeepalive"] %>
+  <% end %>
+  <% if plan["client_connections"] %>
+  client_connections: <%= plan["client_connections"] %>
+  <% end %>
+  <% if plan.has_key?("lua_scripting_enabled") %>
+  lua_scripting_enabled: <%= plan["lua_scripting_enabled"] %>
+  <% end %>
   <% if plan["type"] == "standalone" %>
   <% if plan["persist"] %>
   persistent: true

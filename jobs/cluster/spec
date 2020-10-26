@@ -38,17 +38,35 @@ properties:
     description: Number of seconds to wait for the cluster to settle, after the initial deploy.
     default: 20
   
+  lua.scripting-enabled:
+    description: Whether or not to allow lua scripting.
+    default: true
+  
   client.connections:
     description: Set the max number of connected clients at the same time
     default: 10000 
 
   client.timeout:
-    description: Set the max number of connected clients at the same time
+    description: Close the connection after a client is idle for N seconds (0 to disable)
     default: 0 
 
   client.tcpkeepalive:
     description: If non-zero, use SO_KEEPALIVE to send TCP ACKs to clients in absence of communication
     default: 300
+
+  redis.maxmemory:
+    description: |
+       Set a memory usage limit to the specified amount of bytes.
+       Memory units may be specified when specifying bytes.
+       1k => 1000 bytes
+       1kb => 1024 bytes
+       1m => 1000000 bytes
+       1mb => 1024*1024 bytes
+       1g => 1000000000 bytes
+       1gb => 1024*1024*1024 bytes
+       units are case insensitive so 1GB 1Gb 1gB are all the same.
+
+    default: 0
 
   redis.maxmemory-policy:
     description: |
@@ -76,3 +94,15 @@ properties:
   redis.slowlog-max-len:
     description: Sets the length (count) of the slowlog queue.
     default: 128
+
+  redis.no-appendfsync-on-rewrite:
+    description: If you have latency problems turn this to true. Otherwise leave it as false
+    default: false
+
+  redis.auto-aof-rewrite-percentage:
+    description: Modify the percentage for auto append on rewrite.
+    default: 100
+
+  redis.auto-aof-rewrite-min-size:
+    description: Modify the minimum file size  for auto append on rewrite.
+    default: "64mb"
