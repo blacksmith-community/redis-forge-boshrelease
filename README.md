@@ -249,7 +249,7 @@ Some of these parameters may dependent on other parameters
 | --------- | ----------- | ------- | ----- |
 | auth.password | The password required of clients wishing to use this Redis instance. | | |
 | persistent | Whether or not the Redis dataset should persist to disk (via AOF semantics) | true | |
-| lua_scripting-enabled | Whether or not to allow lua scripting. | true | |
+| lua_scripting_enabled | Whether or not to allow lua scripting. | true | |
 | client_connections | Set the max number of connected clients at the same time | 10000 | |
 | client_timeout | Close the connection after a client is idle for N seconds | 0 | 0 = disable |
 | client_tcpkeepalive | If non-zero, use SO_KEEPALIVE to send TCP ACKs to clients in absence of communication | 300 | |
