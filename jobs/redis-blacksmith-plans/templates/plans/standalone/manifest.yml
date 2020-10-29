@@ -2,7 +2,7 @@
 meta:
   size: default
   default:
-    az: z1
+    azs: [ z1 ]
   password: (( vault $CREDENTIALS "/redis/system:password" ))
 
 releases:
@@ -19,16 +19,17 @@ update:
   canary_watch_time: 1000-30000
   update_watch_time: 1000-30000
 
+features:
+  randomize_az_placement: true
+
 instance_groups:
   - name: standalone
     instances: 1
-    azs: [(( grab meta.az || meta.default.az ))]
     networks: [name: (( grab meta.net || "redis-service" ))]
     stemcell: default
-
+    azs: (( grab meta.azs || meta.default.azs ))
     vm_type: (( grab meta.size ))
     persistent_disk: (( grab meta.disk || 0 ))
-
     jobs:
       - name:    standalone
         release: redis-forge

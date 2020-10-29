@@ -69,9 +69,10 @@ Here's a diagram to clear things up:
   via the VM type is not going to net you much of a gain (see
   the `disk_size` and `persist` options instead.
 
-- *az* - A single BOSH availability zone name (per cloud-config),
-  for your standalone node placement.  By default, the node will be
-  put in `z1`.
+- *azs* - An array of BOSH availability zone names (per cloud-config),
+  for your standalone node placement. Deployed VMs will be
+  randomly distributed across these AZs. By default, all nodes will
+  be put in `z1`.
 
 - *network* - The name of the network to deply these instances to.
   This network should be defined in your cloud-config, and should
