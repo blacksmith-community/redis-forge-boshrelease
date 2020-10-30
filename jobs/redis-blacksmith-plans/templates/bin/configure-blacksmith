@@ -101,8 +101,25 @@ meta:
   replicas:  <%= plan["replicas"] || 1 %>
   instances: <%= plan["masters"] + plan["masters"] * (plan["replicas"] || 1) %>
   <% end %>
-EOF
 
+  <% if plan["exporter"] %>
+releases:
+- name:    prometheus
+  version: 26.3.0
+  url:     https://bosh.io/d/github.com/cloudfoundry-community/prometheus-boshrelease?v=26.3.0
+  sha1:    d945d88b23dbfea03959d5404450567a90a7d833
+
+instance_groups:
+- name: <%= plan["type"] == "standalone" ? "standalone" : "node" %>
+  jobs:
+  - name: redis_exporter
+    release: prometheus
+    properties:
+      redis_exporter:
+        redis:
+          password: (( grab meta.password ))
+  <% end %>
+EOF
 
 
 <% end %>
