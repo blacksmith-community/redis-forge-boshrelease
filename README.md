@@ -262,6 +262,7 @@ Some of these parameters may dependent on other parameters
 |  redis_no-appendfsync-on-rewrite | If you have latency problems turn this to true. Otherwise leave it as false | false | This parameter is allowed only if the *persistent* is set true |
 |  redis_auto-aof-rewrite-percentage | Modify the percentage for auto append on rewrite. | 100 | This parameter is allowed only if the *persistent* is set true |
 |  redis_auto-aof-rewrite-min-size: | Modify the minimum file size  for auto append on rewrite. | 64mb | This parameter is allowed only if the *persistent* is set true |
+| exporter | If set to true, a Prometheus redis_exporter will be colocated on the Redis nodes | false |
 
    Memory units may be specified when specifying bytes.  
    1k => 1000 bytes  
