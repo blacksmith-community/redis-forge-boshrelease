@@ -11,7 +11,9 @@ case $1 in
     sysctl vm.overcommit_memory=1
     echo never > /sys/kernel/mm/transparent_hugepage/enabled
 
-    chpst -u vcap:vcap redis-server --version > /var/vcap/store/standalone/REDIS_VERSION
+    chpst -u vcap:vcap redis-server --version > /var/vcap/store/standalone/REDIS_VERSION_FULL
+    chpst -u vcap:vcap redis-server --version | sed -e 's/.* v=\([^ ]*\).*/\1/' > /var/vcap/store/standalone/REDIS_VERSION
+    chown vcap:vcap /var/vcap/store/standalone/REDIS_VERSION_FULL /var/vcap/store/standalone/REDIS_VERSION
 
     <% if p('persistent') %>
     cd /var/vcap/store/standalone
