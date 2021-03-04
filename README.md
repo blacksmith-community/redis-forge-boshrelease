@@ -283,6 +283,19 @@ App developers can customize the following parameters. See the [Redis documentat
 | **slowlog-log-slower-than** | 10000 | 0-20000 | Sets the threshhold execution time (seconds). Commands that exceed this execution time are added to the slowlog. |
 | **slowlog-max-len** | 128 | 1-2024 | Sets the length (count) of the slowlog queue.|
 
+## Forge Maintainer Notes
+### Upgrading Redis Releases
+1. Remember to use the s3 folder 'redis' when adding a new Redis tarbal.  
+   example: `bosh add-blob ~/Downloads/redis-5.0.12.tar.gz redis/redis-5.0.12.tar.gz`
+1. Remember to remove the previous redis blob before creating a final release through the pipeline  
+   example: `bosh remove-blob redis/redis-5.0.10.tar.gz`
+1. Create a release tarball for testing purposes.  You will need the --version the first time you create a
+development release  
+   example `bosh create-release --name=redis-forge --version=0.4.7+dev.1 --tarball=/tmp/redis-forge.tar.gz --force`
+1. Get the private.yml for the S3 bucket from someone in the know.  The file goes into the 'config' directory.
+   Now you can use bosh to upload the blob to S3.
+1. Add the 'release_notes.md' to the ci directory.
+
 ## Contributing
 
 If you find a bug, please raise a [Github Issue][1] first,
