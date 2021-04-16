@@ -244,7 +244,7 @@ For security reasons the following Redis commands have been disabled in all plan
 ## Redis Configuration Plan Parameters
 
 These Redis configuration parameters can be used when plans are created during forge deployment. 
-Some of these parameters may dependent on other parameters
+Some of these parameters may dependent on other parameters or plan model properties.
 
 | Parameter | Description | Default | Notes |
 | --------- | ----------- | ------- | ----- |
@@ -255,13 +255,13 @@ Some of these parameters may dependent on other parameters
 | client_timeout | Close the connection after a client is idle for N seconds | 0 | 0 = disable |
 | client_tcpkeepalive | If non-zero, use SO_KEEPALIVE to send TCP ACKs to clients in absence of communication | 300 | |
 | redis_maxmemory | Set a memory usage limit to the specified amount of bytes. | 0 | 0 = VM limit |
-|  redis_maxmemory-policy | Sets the behavior Redis follows when maxmemory is reached. | allkeys-lru, |allkeys-lru, noeviction, volatile-lru, allkeys-random, volatile-ttl, volatile-lfu, allkeys-lfu |
+|  redis_maxmemory-policy | Sets the behavior Redis follows when maxmemory is reached. | allkeys-lru, |allkeys-lru, noeviction,<br/> volatile-lru, allkeys-random,<br/> volatile-ttl, volatile-lfu,<br/> allkeys-lfu |
 | redis_notify-keyspace-events | Sets the keyspace notifications for events that affect the Redis data set | "" | |
 | redis_slowlog-log-slower-than | Sets the threshhold execution time (seconds).  Commands that exceed this execution time are added to the slowlog.| 10000 | |
 | redis_slowlog-max-len | Sets the length (count) of the slowlog queue. | 128 | |
-|  redis_no-appendfsync-on-rewrite | If you have latency problems turn this to true. Otherwise leave it as false | false | This parameter is allowed only if the *persistent* is set true |
-|  redis_auto-aof-rewrite-percentage | Modify the percentage for auto append on rewrite. | 100 | This parameter is allowed only if the *persistent* is set true |
-|  redis_auto-aof-rewrite-min-size: | Modify the minimum file size  for auto append on rewrite. | 64mb | This parameter is allowed only if the *persistent* is set true |
+|  redis_no-appendfsync-on-rewrite | If you have latency problems turn this to true. Otherwise leave it as false | false | This parameter has significance only if the *persistent* parameter is set true. |
+|  redis_auto-aof-rewrite-percentage | Modify the percentage for auto append on rewrite. | 100 | This parameter has significance only if the *persistent* parameter is set true. |
+|  redis_auto-aof-rewrite-min-size: | Modify the minimum file size  for auto append on rewrite. | 64mb | This parameter has significance only if the *persistent* parameter is set true. |
 | exporter | If set to true, a Prometheus redis_exporter will be colocated on the Redis nodes | false |
 
    Memory units may be specified when specifying bytes.  
@@ -278,10 +278,23 @@ App developers can customize the following parameters. See the [Redis documentat
 
 |                Property                 | Default | Options | Description |
 |-----------------------------|---------|---------| ----------- |
-| **maxmemory-policy** | *allkeys-lru*	| allkeys-lru, noeviction,<br/> volatile-lru,<br/> allkeys-random,<br/> volatile-ttl,<br/> volatile-lfu,<br/> allkeys-lfu | Sets the behavior Redis follows when *maxmemory* is reached |
-| **notify-keyspace-events** | “” | Set a combination of the following characters<br/> (e.g., *“Elg”*):<br/> K, E, g, $, l, s, h, z, x, e, A | Sets the keyspace notifications for events that affect the Redis data set |
+| **maxmemory-policy** | *allkeys-lru*	| allkeys-lru, noeviction,<br/> volatile-lru,<br/> allkeys-random,<br/> volatile-ttl,<br/> volatile-lfu,<br/> allkeys-lfu | Sets the behavior Redis follows when *maxmemory* is reached. Please see the [redis.conf][2] for their brief definitions.|
+| **notify-keyspace-events** | “” | Set a combination of the following characters<br/> (e.g., *“Elg”*):<br/> K, E, g, $, l, s, h, z, x, e, A | Sets the keyspace notifications for events that affect the Redis data set. Please see the [redis.conf][2] file for their succinct definitions. |
 | **slowlog-log-slower-than** | 10000 | 0-20000 | Sets the threshhold execution time (seconds). Commands that exceed this execution time are added to the slowlog. |
 | **slowlog-max-len** | 128 | 1-2024 | Sets the length (count) of the slowlog queue.|
+
+## Forge Maintainer Notes
+### Upgrading Redis Releases
+1. Remember to use the s3 folder 'redis' when adding a new Redis tarbal.  
+   example: `bosh add-blob ~/Downloads/redis-5.0.12.tar.gz redis/redis-5.0.12.tar.gz`
+1. Remember to remove the previous redis blob before creating a final release through the pipeline  
+   example: `bosh remove-blob redis/redis-5.0.10.tar.gz`
+1. Create a release tarball for testing purposes.  You will need the --version the first time you create a
+development release  
+   example `bosh create-release --name=redis-forge --version=0.4.7+dev.1 --tarball=/tmp/redis-forge.tar.gz --force`
+1. Get the private.yml for the S3 bucket from someone in the know.  The file goes into the 'config' directory.
+   Now you can use bosh to upload the blob to S3.
+1. Add the 'release_notes.md' to the ci directory.
 
 ## Contributing
 
@@ -290,5 +303,6 @@ before submitting a PR.
 
 
 [1]: https://github.com/blacksmith-community/redis-forge-boshrelease/issues
+[2]: https://raw.githubusercontent.com/redis/redis/5.0/redis.conf
 [broker]: https://github.com/cloudfoundry-community/blacksmith
 [redis]:  https://redis.io
