@@ -87,7 +87,7 @@ meta:
   <% if plan["azs"] %>
   azs: <%= plan["azs"] %>
   <% end %>
-  <% if plan["type"] == "standalone" %>
+  <% if plan["type"] =~ /standalone/ %>
   <% if plan["persist"] %>
   persistent: true
   disk: <%= plan["disk"] || 1_024 %>
@@ -96,7 +96,7 @@ meta:
   <% end %>
   <% end %>
 
-  <% if plan["type"] == "cluster" && plan["masters"] > 0 %>
+  <% if plan["type"] =~ /cluster/ && plan["masters"] > 0 %>
   masters:   <%= plan["masters"] %>
   replicas:  <%= plan["replicas"] || 1 %>
   instances: <%= plan["masters"] + plan["masters"] * (plan["replicas"] || 1) %>
@@ -109,8 +109,18 @@ releases:
   url:     https://bosh.io/d/github.com/cloudfoundry-community/prometheus-boshrelease?v=26.3.0
   sha1:    d945d88b23dbfea03959d5404450567a90a7d833
 
+  <%-
+    if plan["type"] =~ /standalone/
+       instance_name = plan["type"]
+    elsif plan["type"] == "cluster"
+       instance_name = "node"
+    else
+       instance_name = "node-6"
+    end
+  -%>
+
 instance_groups:
-- name: <%= plan["type"] == "standalone" ? "standalone" : "node" %>
+- name: <%= instance_name %>
   jobs:
   - name: redis_exporter
     release: prometheus

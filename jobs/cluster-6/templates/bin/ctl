@@ -1,7 +1,7 @@
 #!/bin/bash
 set -eu
 
-source /var/vcap/jobs/cluster/helpers/ctl_setup.sh 'cluster'
+source /var/vcap/jobs/cluster-6/helpers/ctl_setup.sh 'cluster-6'
 
 export LANG=en_US.UTF-8
 case $1 in
@@ -11,7 +11,7 @@ case $1 in
 
     sysctl vm.overcommit_memory=1
     echo never > /sys/kernel/mm/transparent_hugepage/enabled || true
-    cd /var/vcap/store/cluster
+    cd /var/vcap/store/cluster-6
 
     exec chpst -u vcap:vcap redis-server \
          $JOB_DIR/config/redis.conf \
