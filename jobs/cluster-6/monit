@@ -1,0 +1,5 @@
+check process cluster-6
+  with pidfile /var/vcap/sys/run/cluster-6/cluster-6.pid
+  start program "/var/vcap/jobs/cluster-6/bin/monit_debugger cluster-6_ctl '/var/vcap/jobs/cluster-6/bin/ctl start'"
+  stop program "/var/vcap/jobs/cluster-6/bin/monit_debugger cluster-6_ctl '/var/vcap/jobs/cluster-6/bin/ctl stop'"
+  group vcap
