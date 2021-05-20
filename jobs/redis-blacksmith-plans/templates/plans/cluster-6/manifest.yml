@@ -23,7 +23,7 @@ update:
   update_watch_time: 1000-30000
 
 instance_groups:
-  - name: node-6
+  - name: node
     instances: (( grab meta.instances ))
     azs: (( grab meta.azs || meta.default.azs ))
     networks: [name: (( grab meta.net || "redis-service" ))]

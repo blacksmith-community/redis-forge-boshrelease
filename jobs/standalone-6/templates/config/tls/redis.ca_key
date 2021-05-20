@@ -1,0 +1,10 @@
+<% if p('redis.tls.enabled') -%>
+<% if_p("redis.tls.ca_key") do |key|
+  if !key.match('PRIVATE KEY')
+    key = key.gsub(/^(.{40}).*/, '\1...')
+    raise "redis.tls.ca_key '#{key}' does not look like a TLS private key"
+  end
+%>
+<%= p('redis.tls.ca_key') %>
+<% end %>
+<% end -%>
