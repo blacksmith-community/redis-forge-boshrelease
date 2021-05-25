@@ -11,4 +11,4 @@ export HOME=/var/vcap
 tar -xzvf redis/redis-6.2.1.tar.gz
 cd redis-6.2.1
 export PREFIX=${BOSH_INSTALL_TARGET}
-make -j$CPUS && make install
+make BUILD_TLS=yes -j$CPUS && make install

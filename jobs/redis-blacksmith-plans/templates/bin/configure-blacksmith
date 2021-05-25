@@ -44,6 +44,16 @@ meta:
   redis_maxmemory-policy: <%= plan["redis_maxmemory-policy"] %>
   <% end %>
 
+  <% if p('redis.tls.enabled') %> 
+  redis:
+    tls:
+      enabled: true
+      ca: (( file "/var/vcap/jobs/redis-blacksmith-plans/config/tls/redis.ca" ))
+      ca_cert: (( file "/var/vcap/jobs/redis-blacksmith-plans/config/tls/redis.cert" ))
+      ca_key: (( file "/var/vcap/jobs/redis-blacksmith-plans/config/tls/redis.key" ))
+
+  <% end %>
+
   <% if plan["redis_maxmemory"] %>
   redis_maxmemory: <%= plan["redis_maxmemory"] %>
   <% end %>
@@ -109,18 +119,8 @@ releases:
   url:     https://bosh.io/d/github.com/cloudfoundry-community/prometheus-boshrelease?v=26.3.0
   sha1:    d945d88b23dbfea03959d5404450567a90a7d833
 
-  <%-
-    if plan["type"] =~ /standalone/
-       instance_name = plan["type"]
-    elsif plan["type"] == "cluster"
-       instance_name = "node"
-    else
-       instance_name = "node-6"
-    end
-  -%>
-
 instance_groups:
-- name: <%= instance_name %>
+- name: <%= plan["type"] =~ /standalone/ ? "standalone" : "node" %>
   jobs:
   - name: redis_exporter
     release: prometheus

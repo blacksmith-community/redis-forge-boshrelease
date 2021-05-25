@@ -4,11 +4,20 @@ packages:
   - redis-6
 templates:
   bin/ctl: bin/ctl
+  bin/pre-start: bin/pre-start
   bin/monit_debugger: bin/monit_debugger
-  config/redis.conf: config/redis.conf
   data/properties.sh.erb: data/properties.sh
   helpers/ctl_setup.sh: helpers/ctl_setup.sh
   helpers/ctl_utils.sh: helpers/ctl_utils.sh
+
+  config/tls/redis.ca: config/tls/redis.ca
+  config/tls/redis.ca_cert: config/tls/redis.ca_cert
+  config/tls/redis.ca_key: config/tls/redis.ca_key
+  config/req.conf.erb: config/req.conf
+  config/redis.conf: config/redis.conf
+
+  dns/aliases.json.erb: dns/aliases.json
+
 
 properties:
   auth.password:
@@ -33,6 +42,16 @@ properties:
   client.tcpkeepalive:
     description: If non-zero, use SO_KEEPALIVE to send TCP ACKs to clients in absence of communication
     default: 300
+
+  redis.tls.enabled:
+    description: "Should the Redis use TLS"
+    default: false
+  redis.tls.ca:
+    description: The PEM-encoded certificate of the CA that signed the Redis Certificate.
+  redis.tls.ca_cert:
+    description: The PEM-encoded certificate of the CA cert that signed the Redis Certificate.
+  redis.tls.ca_key:
+    description: The PEM-encoded certificate of the Redis itself.
 
   redis.maxmemory:
     description: |

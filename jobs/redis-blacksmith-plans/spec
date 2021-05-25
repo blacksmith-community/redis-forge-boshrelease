@@ -3,6 +3,10 @@ packages: []
 templates:
   bin/configure-blacksmith: bin/configure-blacksmith
 
+  config/tls/redis.cert: config/tls/redis.cert
+  config/tls/redis.ca:  config/tls/redis.ca
+  config/tls/redis.key: config/tls/redis.key
+
   plans/service.yml:                plans/service.yml
 
   plans/standalone/manifest.yml:    plans/standalone/manifest.yml
@@ -41,6 +45,16 @@ properties:
   service.limit:
     description: A global limit on the number of Redis services (regardless of the plan); 0 = unlimited.
     default: 0
+
+  redis.tls.enabled:
+    description: "Should the Redis use TLS"
+    default: false
+  redis.tls.ca:
+    description: The PEM-encoded public certificate of the CA
+  redis.tls.ca_cert:
+    description: The PEM-encoded certificate of the CA for signing
+  redis.tls.ca_key:
+    description: The PEM-encoded private key for the CA certificate.
 
   plans:
     description: |
