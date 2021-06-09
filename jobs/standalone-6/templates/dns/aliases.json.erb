@@ -1,7 +1,7 @@
 
 <%=
 # This file is required by the bosh-dns job which is applied through the runtime config
-domain = spec.deployment + ".redis.service.cf.internal"
+domain = spec.id + ".redis.cf.internal"
 
 aliases = { domain => [ spec.address ] }
 
