@@ -9,3 +9,6 @@ openssl x509 -req -in $DATA_DIR/redis.csr -CA $JOB_DIR/config/tls/redis.ca_cert 
 
 cp $JOB_DIR/config/tls/redis.ca /usr/local/share/ca-certificates/redis.crt
 update-ca-certificates
+
+chown vcap:vcap $DATA_DIR/*
+
