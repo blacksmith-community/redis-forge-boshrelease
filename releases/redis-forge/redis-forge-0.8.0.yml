@@ -1,0 +1,49 @@
+name: redis-forge
+version: 0.8.0
+commit_hash: e6360b3
+uncommitted_changes: false
+jobs:
+- name: cluster
+  version: 28f69a2fc1cb70d3a825324494185654d5f2392f6003cbe96f3680e490c96837
+  fingerprint: 28f69a2fc1cb70d3a825324494185654d5f2392f6003cbe96f3680e490c96837
+  sha1: sha256:a76885e66e5347ec43f4746a1d95174af40e0a8a904b15106c93495e892cfa79
+  packages:
+  - redis
+- name: cluster-6
+  version: e7c4fdb7ac51b6a99c0d7837a0a4208432700826ffcee950fee3dae3a39e9f5a
+  fingerprint: e7c4fdb7ac51b6a99c0d7837a0a4208432700826ffcee950fee3dae3a39e9f5a
+  sha1: sha256:4855dcb0ee5ca6896fd973c5b1127e816c8644b0cf7a973a9811c4caf3d62aeb
+  packages:
+  - redis-6
+- name: redis-blacksmith-plans
+  version: b3c79c525fcb7cfbd4e9330b5298038c044292f2752224b4224f82f86ad0fff9
+  fingerprint: b3c79c525fcb7cfbd4e9330b5298038c044292f2752224b4224f82f86ad0fff9
+  sha1: sha256:e7dbc0964b8499a3c917b979454aece06409d7e96b89e708b2140f13c16b60d7
+  packages: []
+- name: standalone
+  version: f7d41d8d046f51b83ec77c920b436eb720b50f02f8c6b7e30595d6e664f6b125
+  fingerprint: f7d41d8d046f51b83ec77c920b436eb720b50f02f8c6b7e30595d6e664f6b125
+  sha1: sha256:1ecd67390a4d9fae85457eb6148224f39ea398ff5ace24fd9d8a03a3cae7c0fe
+  packages:
+  - redis
+- name: standalone-6
+  version: 0b7edbcfcc0388fe9ca9f8941ab0a9e29cacb164e2e03f56fb75ed0f583477e5
+  fingerprint: 0b7edbcfcc0388fe9ca9f8941ab0a9e29cacb164e2e03f56fb75ed0f583477e5
+  sha1: sha256:e53659cb275f9c944ae7d976376c1fee32b9ef16a75bac9c6ed368c5c9d8ea9f
+  packages:
+  - redis-6
+packages:
+- name: redis
+  version: 8ec517529bec18f0a36c3efadd729972651cd456001f78e2bbb490cd86a6c95b
+  fingerprint: 8ec517529bec18f0a36c3efadd729972651cd456001f78e2bbb490cd86a6c95b
+  sha1: sha256:495a0d333f5efe232775507b50190f30777a39788f6f69056d4a23cbb7f9c9da
+  dependencies: []
+- name: redis-6
+  version: 1646f38be8b6b10bd9a3a5017d10216414d69f36784d2acb94066d8a8f2c9be8
+  fingerprint: 1646f38be8b6b10bd9a3a5017d10216414d69f36784d2acb94066d8a8f2c9be8
+  sha1: sha256:4d79e02c18fbade58fa92077db04050635c13aeb63e8ef703b8e46b280e983ea
+  dependencies: []
+license:
+  version: 2ddf44a51ba997973997ce5343ce1bdc8ee0d1bce5c91d6f0db4fb1386a58cb1
+  fingerprint: 2ddf44a51ba997973997ce5343ce1bdc8ee0d1bce5c91d6f0db4fb1386a58cb1
+  sha1: sha256:1cdbc5f984b80710798e07a1b285d3fbbbc05d2c9b2c27e3f35f12a809a93ef9
