@@ -1,28 +1,44 @@
 #!/bin/bash
 set -eu
 
-source /var/vcap/jobs/cluster-6/helpers/ctl_setup.sh 'cluster-6'
+JOBS_PATH=/var/vcap/jobs/${JOB_NAME} # cluster-6
+
+source ${JOBS_PATH}/helpers/ctl_setup.sh ${JOB_NAME}
 
 export LANG=en_US.UTF-8
+
 case $1 in
-  start)
+  (start)
     pid_guard $PIDFILE $JOB_NAME
     echo $$ > $PIDFILE
 
     sysctl vm.overcommit_memory=1
     echo never > /sys/kernel/mm/transparent_hugepage/enabled || true
+
     cd /var/vcap/store/cluster-6
 
+    <% if p('redis.tls.enabled') %>
+    #TLS_PATH=/var/vcap/jobs/redis-blacksmith-plans/config/tls
     exec chpst -u vcap:vcap redis-server \
-         $JOB_DIR/config/redis.conf \
-         >>$LOG_DIR/$JOB_NAME.log 2>&1
+      --port <%= p('redis.tls.dual-mode') == "true" ? 6380 : 0 -%> \
+      --tls-port 6379 \
+      --tls-cert-file ${JOBS_PATH}/tls/redis.crt \
+      --tls-key-file ${JOBS_PATH}/tls/redis.key \
+      --tls-ca-cert-file ${JOBS_PATH}/tls/redis.ca \
+      $JOB_DIR/config/redis.conf \
+      >>$LOG_DIR/$JOB_NAME.log 2>&1
+    <% else %>
+    exec chpst -u vcap:vcap redis-server \
+      $JOB_DIR/config/redis.conf \
+      >>$LOG_DIR/$JOB_NAME.log 2>&1
+    <% end %>
     ;;
 
-  stop)
+  (stop)
     kill_and_wait $PIDFILE
     ;;
 
-  *)
+  (*)
     echo "Usage: ctl {start|stop}"
     ;;
 esac

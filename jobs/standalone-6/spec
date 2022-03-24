@@ -11,13 +11,12 @@ templates:
   helpers/ctl_utils.sh: helpers/ctl_utils.sh
 
   config/tls/redis.ca: config/tls/redis.ca
-  config/tls/redis.ca_cert: config/tls/redis.ca_cert
-  config/tls/redis.ca_key: config/tls/redis.ca_key
+  config/tls/redis.ca_cert: config/tls/redis.cert
+  config/tls/redis.ca_key: config/tls/redis.key
   config/req.conf.erb: config/req.conf
   config/redis.conf: config/redis.conf
 
   dns/aliases.json.erb: dns/aliases.json
-
 
 properties:
   auth.password:
@@ -45,6 +44,9 @@ properties:
 
   redis.tls.enabled:
     description: "Should the Redis use TLS"
+    default: false
+  redis.tls.dual-mode:
+    description: "Allow for TLS (6379) and Non-TLS (6380) both."
     default: false
   redis.tls.ca:
     description: The PEM-encoded certificate of the CA that signed the Redis Certificate.
