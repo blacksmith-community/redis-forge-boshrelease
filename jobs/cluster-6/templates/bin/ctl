@@ -21,11 +21,6 @@ case $1 in
     <% if p('redis.tls.enabled') %>
     #TLS_PATH=/var/vcap/jobs/redis-blacksmith-plans/config/tls
     exec chpst -u vcap:vcap redis-server \
-      --port <%= p('redis.tls.dual-mode') == "true" ? 6380 : 0 -%> \
-      --tls-port 6379 \
-      --tls-cert-file ${JOBS_PATH}/config/tls/redis.crt \
-      --tls-key-file ${JOBS_PATH}/config/tls/redis.key \
-      --tls-ca-cert-file ${JOBS_PATH}/config/tls/redis.ca \
       $JOB_DIR/config/redis.conf \
       >>$LOG_DIR/$JOB_NAME.log 2>&1
     <% else %>
