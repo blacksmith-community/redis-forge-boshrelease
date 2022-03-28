@@ -55,7 +55,7 @@ The following sections discuss those ad nauseum.
 
 The `standalone` topology is as straightforward as they come: a
 singe dedicated VM that runs redis bound on all interfaces, to
-port 6379.
+port 6379. If TLS is enabled it will bind to port 16379.
 
 Here's a diagram to clear things up:
 

@@ -46,7 +46,7 @@ properties:
     description: "Should the Redis use TLS"
     default: false
   redis.tls.dual-mode:
-    description: "Allow for TLS (6379) and Non-TLS (6380) both."
+    description: "Allow for TLS (16379) and Non-TLS (6379) both."
     default: false
   redis.tls.ca:
     description: The PEM-encoded certificate of the CA that signed the Redis Certificate.
