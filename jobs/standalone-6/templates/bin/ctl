@@ -1,6 +1,7 @@
 #!/bin/bash
 set -eu
 
+JOB_NAME=${JOB_NAME:-"standalone-6"}
 JOBS_PATH=/var/vcap/jobs/${JOB_NAME} # standalone-6
 
 source ${JOBS_PATH}/helpers/ctl_setup.sh ${JOB_NAME}
