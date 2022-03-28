@@ -3,7 +3,6 @@ set -eu
 
 JOB_NAME=${JOB_NAME:-"standalone-6"}
 JOBS_PATH=/var/vcap/jobs/${JOB_NAME} # standalone-6
-
 source ${JOBS_PATH}/helpers/ctl_setup.sh ${JOB_NAME}
 
 export LANG=en_US.UTF-8
@@ -26,17 +25,9 @@ case $1 in
     <% end %>
 
     echo $$ > $PIDFILE
-
-    <% if p('redis.tls.enabled') -%>
-    #TLS_PATH=/var/vcap/jobs/redis-blacksmith-plans/config/tls ???
     exec chpst -u vcap:vcap redis-server \
       $JOB_DIR/config/redis.conf \
       >>$LOG_DIR/$JOB_NAME.log 2>&1
-    <% else %>
-    exec chpst -u vcap:vcap redis-server \
-      $JOB_DIR/config/redis.conf \
-      >>$LOG_DIR/$JOB_NAME.log 2>&1
-    <% end %>
     ;;
 
   (stop)
