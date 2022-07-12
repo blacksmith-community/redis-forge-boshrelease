@@ -8,6 +8,9 @@ meta:
   manifest:
     path: ci/manifest.yml
 
+  service:
+    name: redis
+
   git:
     name: Stark & Wayne CI Bot
     email: ci@starkandwayne.com
@@ -25,7 +28,7 @@ meta:
   github:
     owner:  blacksmith-community
     repo:   redis-forge-boshrelease
-    branch: master
+    branch: feature/cf-availability-ci
     private_key:  ((starkandwayne-bot-github.private-key))
     access_token: ((starkandwayne-bot-github.access-token))
 

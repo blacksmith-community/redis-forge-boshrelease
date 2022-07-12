@@ -140,6 +140,16 @@ fi
 ######
 ######
 ######
+if [[ -n ${SERVICE_NAME:-} ]]; then
+  header "Verifying '${SERVICE_NAME}' is available in the marketplace..."
+
+  cf api $(bosh int tmp/vars.yml --path /cf-api-url) --skip-ssl-validation
+  cf marketplace
+fi
+
+######
+######
+######
 header "Cleaning up testflight '${BOSH_DEPLOYMENT}' deployment..."
 bosh -n delete-deployment --force
 
