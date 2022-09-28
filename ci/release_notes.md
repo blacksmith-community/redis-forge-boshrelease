@@ -1,1 +1,0 @@
-- Introduce custom list of disabled Redis commands
