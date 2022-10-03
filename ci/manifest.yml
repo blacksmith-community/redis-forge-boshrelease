@@ -12,6 +12,8 @@ instance_groups:
     - name: redis-blacksmith-plans
       release: redis-forge
       properties:
+        environment: default
+        bosh_env: default
         plans:
           standalone:
             name: standalone

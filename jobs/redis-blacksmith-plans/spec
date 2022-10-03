@@ -46,6 +46,12 @@ properties:
     description: A global limit on the number of Redis services (regardless of the plan); 0 = unlimited.
     default: 0
 
+  environment:
+    description: The environment name of the cloudfoundry/bosh deployment
+
+  bosh_env:
+    description: The environment name of the bosh deployment if different from cloudfoundry (defaults to environment)
+
   redis.tls.enabled:
     description: "Should the Redis use TLS"
     default: false

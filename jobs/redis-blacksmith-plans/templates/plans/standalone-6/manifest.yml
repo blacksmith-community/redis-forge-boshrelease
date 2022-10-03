@@ -1,9 +1,25 @@
 ---
 meta:
   size: default
+  password: (( vault $CREDENTIALS "/redis/system:password" ))
+  environment: <%= p('environment') %>
+  bosh_env: <%= p('bosh_env') %>
   default:
     azs: [ z1 ]
-  password: (( vault $CREDENTIALS "/redis/system:password" ))
+
+variables:
+- name: redis_standalone_crt
+  type: certificate
+  options:
+    ca: (( concat "/" meta.bosh_env "-bosh/" meta.environment "-blacksmith/blacksmith_services_ca" ))
+    common_name: (( concat meta.environment "-redis-standalone.bosh" ))
+  consumes:
+    alternative_name: 
+      from: redis-san 
+      properties: { wildcard: true }
+
+features:
+  use_dns_addresses: true
 
 releases:
   - { name: redis-forge, version: latest }
@@ -49,12 +65,26 @@ instance_groups:
             tls:
               dual-mode: (( grab meta.redis.tls.dual-mode || false ))
               enabled: (( grab meta.redis.tls.enabled || false ))
-              ca: (( grab meta.redis.tls.ca || "" ))
-              ca_cert: (( grab meta.redis.tls.ca_cert || "" ))
-              ca_key: (( grab meta.redis.tls.ca_key || "" ))
+              ca: (( file "/var/vcap/jobs/blacksmith/config/tls/blacksmith_services_ca" ))
+              ca_cert: ((redis_standalone_crt.certificate))
+              ca_key: ((redis_standalone_crt.private_key))
           lua:
             scripting-enabled: (( grab meta.lua_scripting_enabled || true ))
           client:
             timeout: (( grab meta.client_timeout || 0 ))
             tcpkeepalive: (( grab meta.client_tcpkeepalive || 300 ))
             connections: (( grab meta.client_connections || 10000 ))
+
+        provides:
+          redis-san:
+            as: redis-san
+            ip_addresses: false
+          redis-alias-domain:
+            aliases:
+            - domain: "_.redis_standalone.bosh"
+              placeholder_type: uuid
+        custom_provider_definitions:
+        - name: redis-san  
+          type: address
+        - name: redis-alias-domain
+          type: placeholder
