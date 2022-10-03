@@ -51,7 +51,10 @@ meta:
       ca: (( file "/var/vcap/jobs/redis-blacksmith-plans/config/tls/redis.ca" ))
       ca_cert: (( file "/var/vcap/jobs/redis-blacksmith-plans/config/tls/redis.cert" ))
       ca_key: (( file "/var/vcap/jobs/redis-blacksmith-plans/config/tls/redis.key" ))
+  <% end %>
 
+  <% if p('redis.tls.dual-mode') -%> 
+      dual-mode: true
   <% end %>
 
   <% if plan["redis_maxmemory"] %>

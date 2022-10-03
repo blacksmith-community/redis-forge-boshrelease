@@ -21,7 +21,7 @@ function redis() {
 [redis-cli]
   client = yes
   accept = 127.0.0.1:8000
-  connect = $ip:6379
+  connect = $ip:<%= p('redis.tls.dual-mode') ? 16379 : 6379 %>
 EOF
 
   # Restart stunnel to apply changes.
