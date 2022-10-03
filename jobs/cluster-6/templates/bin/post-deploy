@@ -1,19 +1,46 @@
 #!/bin/bash
+
+function log() {
+  echo "[$(date)] $*"
+}
+
 <% if !spec.bootstrap %>log "this node is not the bootstrap node; nothing to do."
 exit 0
 <% else %>set -eu
 exec >&2
 
+<% if p('redis.tls.enabled') -%>
+# Install and setup stunnel.
+apt install -y redis-tools stunnel4
+
+function redis() {
+  local ip=$1 ; shift
+
+  # We need to setup stunnel for TLS connections.
+  cat > /etc/stunnel/stunnel.conf << EOF
+[redis-cli]
+  client = yes
+  accept = 127.0.0.1:8000
+  connect = $ip:6379
+EOF
+
+  # Restart stunnel to apply changes.
+  kill `cat /var/run/stunnel4.pid` || true
+  stunnel /etc/stunnel/stunnel.conf &> /dev/null
+
+  # Execute the actual redis command.
+  (echo "AUTH <%= p('auth.password') %>"; echo $*) \
+    | /var/vcap/packages/redis-6/bin/redis-cli -h 127.0.0.1 -p 8000 \
+    | tr -d '\r';
+}
+<% else %>
 function redis() {
   local ip=$1 ; shift
   (echo "AUTH <%= p('auth.password') %>"; echo $*) \
     | /var/vcap/packages/redis-6/bin/redis-cli -h $ip \
     | tr -d '\r';
 }
-
-function log() {
-  echo "[$(date)] $*"
-}
+<% end %>
 
 <%
   ips = link('redis').instances.map { |instance| instance.address }

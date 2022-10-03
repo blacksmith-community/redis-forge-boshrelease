@@ -4,12 +4,22 @@ packages:
   - redis-6
 templates:
   bin/ctl: bin/ctl
+  bin/pre-start: bin/pre-start
   bin/post-deploy: bin/post-deploy
   bin/monit_debugger: bin/monit_debugger
-  config/redis.conf: config/redis.conf
+
   data/properties.sh.erb: data/properties.sh
+  
   helpers/ctl_setup.sh: helpers/ctl_setup.sh
   helpers/ctl_utils.sh: helpers/ctl_utils.sh
+
+  config/tls/redis.ca: config/tls/redis.ca
+  config/tls/redis.ca_cert: config/tls/redis.cert
+  config/tls/redis.ca_key: config/tls/redis.key
+  config/req.conf.erb: config/req.conf
+  config/redis.conf: config/redis.conf
+
+  dns/aliases.json.erb: dns/aliases.json
 
 provides:
   - name: redis
