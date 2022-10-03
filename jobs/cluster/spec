@@ -106,3 +106,9 @@ properties:
   redis.auto-aof-rewrite-min-size:
     description: Modify the minimum file size  for auto append on rewrite.
     default: "64mb"
+
+  redis.disabled-commands:
+    description: |
+      Disable Redis commands, to enable or disable LUA scripting commands
+      use the configuration `lua.scripting-enabled` instead.
+    default: ["CONFIG", "SAVE", "BGSAVE", "DEBUG", "SHUTDOWN", "SLAVEOF", "SYNC", "ACL"]
