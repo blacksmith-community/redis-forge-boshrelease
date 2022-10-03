@@ -91,4 +91,4 @@ properties:
     description: |
       Disable Redis commands, to enable or disable LUA scripting commands
       use the configuration `lua.scripting-enabled` instead.
-    default: ["CONFIG", "SAVE", "BGSAVE", "DEBUG", "SHUTDOWN", "SLAVEOF", "SYNC", "ACL"]
+    default: ["CONFIG", "SAVE", "BGSAVE", "DEBUG", "SHUTDOWN", "SLAVEOF", "SYNC"]
