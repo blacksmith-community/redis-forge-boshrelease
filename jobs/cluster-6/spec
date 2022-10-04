@@ -2,6 +2,7 @@
 name: cluster-6
 packages:
   - redis-6
+  - stunnel
 templates:
   bin/ctl: bin/ctl
   bin/pre-start: bin/pre-start

@@ -1,0 +1,5 @@
+---
+name: stunnel
+dependencies: []
+files:
+- stunnel/stunnel-5.66.tar.gz
