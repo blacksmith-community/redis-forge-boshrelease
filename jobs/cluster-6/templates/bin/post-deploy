@@ -1,19 +1,50 @@
 #!/bin/bash
+
+function log() {
+  echo "[$(date)] $*"
+}
+
 <% if !spec.bootstrap %>log "this node is not the bootstrap node; nothing to do."
 exit 0
 <% else %>set -eu
 exec >&2
 
+<% if p('redis.tls.enabled') -%>
+mkdir -p /var/vcap/sys/run/stunnel
+
+function redis() {
+  local ip=$1 ; shift
+
+  # Generate the stunnel configuration for TLS connections.
+  cat > /var/vcap/packages/stunnel/stunnel.conf << EOF
+pid=/var/vcap/sys/run/stunnel/stunnel.pid
+[redis-cli]
+  client = yes
+  accept = 127.0.0.1:8000
+  connect = $ip:<%= p('redis.tls.dual-mode') ? 16379 : 6379 %>
+EOF
+
+  # Launch stunnel with the configuration that was just generated.
+  /var/vcap/packages/stunnel/bin/stunnel \
+    /var/vcap/packages/stunnel/stunnel.conf &> /dev/null
+
+  # Execute the actual redis-cli command.
+  (echo "AUTH <%= p('auth.password') %>"; echo $*) \
+    | /var/vcap/packages/redis-6/bin/redis-cli -h 127.0.0.1 -p 8000 \
+    | tr -d '\r';
+  
+  # Cleanup stunnel.
+  kill $(cat /var/vcap/sys/run/stunnel/stunnel.pid) || true
+  rm /var/vcap/packages/stunnel/stunnel.conf
+}
+<% else %>
 function redis() {
   local ip=$1 ; shift
   (echo "AUTH <%= p('auth.password') %>"; echo $*) \
     | /var/vcap/packages/redis-6/bin/redis-cli -h $ip \
     | tr -d '\r';
 }
-
-function log() {
-  echo "[$(date)] $*"
-}
+<% end %>
 
 <%
   ips = link('redis').instances.map { |instance| instance.address }

@@ -1,0 +1,3 @@
+- Introduce custom list of disabled Redis commands **for all plans**
+- Fix TLS support for cluster-6 plans
+- Fix TLS dual-mode support for cluster-6 and standalone-6 plans

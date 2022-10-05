@@ -2,14 +2,25 @@
 name: cluster-6
 packages:
   - redis-6
+  - stunnel
 templates:
   bin/ctl: bin/ctl
+  bin/pre-start: bin/pre-start
   bin/post-deploy: bin/post-deploy
   bin/monit_debugger: bin/monit_debugger
-  config/redis.conf: config/redis.conf
+
   data/properties.sh.erb: data/properties.sh
+  
   helpers/ctl_setup.sh: helpers/ctl_setup.sh
   helpers/ctl_utils.sh: helpers/ctl_utils.sh
+
+  config/tls/redis.ca: config/tls/redis.ca
+  config/tls/redis.ca_cert: config/tls/redis.cert
+  config/tls/redis.ca_key: config/tls/redis.key
+  config/req.conf.erb: config/req.conf
+  config/redis.conf: config/redis.conf
+
+  dns/aliases.json.erb: dns/aliases.json
 
 provides:
   - name: redis
@@ -119,3 +130,9 @@ properties:
   redis.auto-aof-rewrite-min-size:
     description: Modify the minimum file size  for auto append on rewrite.
     default: "64mb"
+
+  redis.disabled-commands:
+    description: |
+      Disable Redis commands, to enable or disable LUA scripting commands
+      use the configuration `lua.scripting-enabled` instead.
+    default: ["CONFIG", "SAVE", "BGSAVE", "DEBUG", "SHUTDOWN", "SLAVEOF", "SYNC", "ACL"]

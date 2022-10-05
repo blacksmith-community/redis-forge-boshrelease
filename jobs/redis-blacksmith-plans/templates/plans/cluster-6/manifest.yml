@@ -2,6 +2,8 @@
 meta:
   size: default
   password: (( vault $CREDENTIALS "/redis/system:password" ))
+  environment: <%= p('environment') %>
+  bosh_env: <%= p('bosh_env') %>
   masters:   2
   replicas:  2
   instances: 4
@@ -82,7 +84,7 @@ instance_groups:
             ip_addresses: false
           redis-alias-domain:
             aliases:
-            - domain: "_.redis_standalone.bosh"
+            - domain: "_.redis_cluster.bosh"
               placeholder_type: uuid
         custom_provider_definitions:
         - name: redis-san  
