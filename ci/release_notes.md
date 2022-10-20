@@ -1,1 +1,0 @@
-- Add support for `disk_type` plan configuration value instead of `disk`
