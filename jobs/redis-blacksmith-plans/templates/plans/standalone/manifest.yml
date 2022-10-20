@@ -30,6 +30,7 @@ instance_groups:
     azs: (( grab meta.azs || meta.default.azs ))
     vm_type: (( grab meta.size ))
     persistent_disk: (( grab meta.disk || 0 ))
+    disk_type: (( grab meta.disk_type || "" ))
     jobs:
       - name:    standalone
         release: redis-forge
