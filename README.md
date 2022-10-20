@@ -97,6 +97,11 @@ Here's a diagram to clear things up:
   store, you can also specify this configuration value to change
   the size of the persistent disk.  By default, you get a 1G disk.
 
+- *disk_type* - If you specify `persist` to get a durable key-value
+  store, you can also specify this configuration value to change
+  the persistent disk type. If both _disk_ and _disk_type_ are
+  defined, the _disk_ configuration value will be ignored.
+
 ### Example Configuration
 
 A single standalone plan, persistent, with 4G of disk:

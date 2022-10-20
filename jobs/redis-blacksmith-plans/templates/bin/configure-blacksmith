@@ -103,7 +103,11 @@ meta:
   <% if plan["type"] =~ /standalone/ %>
   <% if plan["persist"] %>
   persistent: true
+  <% if plan["disk_type"] %>
+  disk_type: <%= plan["disk_type"] %>
+  <% else %>
   disk: <%= plan["disk"] || 1_024 %>
+  <% end %>
   <% else %>
   persistent: false
   <% end %>
