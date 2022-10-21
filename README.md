@@ -67,7 +67,7 @@ Here's a diagram to clear things up:
   You can use this to size your Redis appropriate to your workload
   requirements, in terms of RAM and CPU.  Increasing the disk size
   via the VM type is not going to net you much of a gain (see
-  the `disk_size` and `persist` options instead.
+  the `disk_size`, `disk_type`, and `persist` options instead.
 
 - *azs* - An array of BOSH availability zone names (per cloud-config),
   for your standalone node placement. Deployed VMs will be
@@ -85,7 +85,7 @@ Here's a diagram to clear things up:
 - *persist* - Whether or not the data stored in this Redis
   instance should be written to disk or not.  If you are just
   implementing a cache service using Redis, you don't need to
-  specify this (or `disk`) -- by default this topology is
+  specify this (or `disk_size`) -- by default this topology is
   diskless.
 
   Persistent Redis instances use the append-only format (AOF),
@@ -93,7 +93,7 @@ Here's a diagram to clear things up:
   AOF file is fsync'd once every second to balance safety with
   performance.
 
-- *disk* - If you specify `persist` to get a durable key-value
+- *disk_size* - If you specify `persist` to get a durable key-value
   store, you can also specify this configuration value to change
   the size of the persistent disk.  By default, you get a 1G disk.
 
@@ -115,9 +115,9 @@ instance_groups:
         properties:
           plans:
             single-4g:
-              type:    standalone
-              persist: true
-              disk:    4_096
+              type:      standalone
+              persist:   true
+              disk_size: 4_096
 ```
 
 Here's a configuration that provides two different sizes of
@@ -133,14 +133,14 @@ instance_groups:
         properties:
           plans:
             small:
-              type:    standalone
-              persist: true
-              disk:    4_096
+              type:     standalone
+              persist:  true
+              disk_size: 4_096
 
             large:
-              type:    standalone
-              persist: true
-              disk:    16_384
+              type:      standalone
+              persist:   true
+              disk_size: 16_384
 
             cache:
               type:    standalone

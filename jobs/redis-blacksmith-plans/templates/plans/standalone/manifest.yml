@@ -29,7 +29,7 @@ instance_groups:
     stemcell: default
     azs: (( grab meta.azs || meta.default.azs ))
     vm_type: (( grab meta.size ))
-    persistent_disk: (( grab meta.disk || 0 ))
+    persistent_disk: (( grab meta.disk_size || 0 ))
     persistent_disk_type: (( grab meta.disk_type || "" ))
     jobs:
       - name:    standalone

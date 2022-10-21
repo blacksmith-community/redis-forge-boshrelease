@@ -106,7 +106,7 @@ meta:
   <% if plan["disk_type"] %>
   disk_type: <%= plan["disk_type"] %>
   <% else %>
-  disk: <%= plan["disk"] || 1_024 %>
+  disk_size: <%= plan["disk_size"] || 1_024 %>
   <% end %>
   <% else %>
   persistent: false
