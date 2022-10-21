@@ -73,4 +73,6 @@ builds:
     version: 0.7.3
   ed33289a-d12a-498c-7698-322f282c5555:
     version: 0.5.1
+  fc80a104-3718-4590-41fb-95380dd2d0c4:
+    version: 0.8.16
 format-version: "2"
