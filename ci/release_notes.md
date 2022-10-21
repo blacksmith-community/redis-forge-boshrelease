@@ -1,1 +1,0 @@
-- Avoid rendering both `persistent_disk` and `persistent_disk_type` in the final template.
