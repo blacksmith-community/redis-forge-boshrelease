@@ -1,0 +1,1 @@
+- Rename `disk_type` to `persistent_disk_type` in plans instance groups.
