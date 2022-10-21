@@ -1,0 +1,1 @@
+- Set an empty `meta.disk_config` to be injected if `persist` is set to `false`.

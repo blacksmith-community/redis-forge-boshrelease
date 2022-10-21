@@ -1,6 +1,7 @@
 ---
 meta:
   size: default
+  disk_config: {}
   password: (( vault $CREDENTIALS "/redis/system:password" ))
   environment: <%= p('environment') %>
   bosh_env: <%= p('bosh_env') %>

@@ -1,6 +1,7 @@
 ---
 meta:
   size: default
+  disk_config: {}
   default:
     azs: [ z1 ]
   password: (( vault $CREDENTIALS "/redis/system:password" ))

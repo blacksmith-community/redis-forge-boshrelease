@@ -1,6 +1,7 @@
 ---
 meta:
   size: default
+  disk_config: {}
   password: (( vault $CREDENTIALS "/redis/system:password" ))
   masters:   2
   replicas:  2
