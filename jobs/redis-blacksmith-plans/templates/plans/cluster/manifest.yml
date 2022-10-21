@@ -30,6 +30,10 @@ instance_groups:
     stemcell: default
     vm_type: (( grab meta.size ))
 
+    # This is a workaround to make sure only one of `persistent_disk`
+    # and `persistent_disk_type` is defined.
+    .: (( inject meta.disk_config ))
+
     jobs:
       - name:    cluster
         release: redis-forge

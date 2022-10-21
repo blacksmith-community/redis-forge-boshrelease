@@ -104,9 +104,9 @@ meta:
   <% if plan["persist"] %>
   persistent: true
   <% if plan["disk_type"] %>
-  disk_type: <%= plan["disk_type"] %>
+  disk_config: { persistent_disk_type: <%= plan["disk_type"] %> }
   <% else %>
-  disk_size: <%= plan["disk_size"] || 1_024 %>
+  disk_config: { persistent_disk: <%= plan["disk_size"] || 1_024 %> }
   <% end %>
   <% else %>
   persistent: false
