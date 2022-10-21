@@ -45,8 +45,8 @@ instance_groups:
     stemcell: default
     azs: (( grab meta.azs || meta.default.azs ))
     vm_type: (( grab meta.size ))
-    persistent_disk: (( grab meta.disk_size || 0 ))
-    persistent_disk_type: (( grab meta.disk_type || "" ))
+    persistent_disk: (( grab meta.disk_size || null ))
+    persistent_disk_type: (( grab meta.disk_type || null ))
     jobs:
       - name:    standalone-6
         release: redis-forge
