@@ -1,2 +1,0 @@
-- Rename `disk_type` to `persistent_disk_type` in plans instance groups.
-- Rename `disk` to `disk_size` for consistency with other forges.
