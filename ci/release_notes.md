@@ -1,1 +1,0 @@
-- Set `null` instead of default values for persistent disks configuration values.
