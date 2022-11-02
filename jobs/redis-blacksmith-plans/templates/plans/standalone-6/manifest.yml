@@ -41,6 +41,9 @@ features:
 
 instance_groups:
   - name: standalone
+    <% unless p("persistent_disk_pool").empty? -%>
+    persistent_disk_pool: <%= p("persistent_disk_pool") %>
+    <% end -%>
     instances: 1
     networks: [name: (( grab meta.net || "redis-service" ))]
     stemcell: default

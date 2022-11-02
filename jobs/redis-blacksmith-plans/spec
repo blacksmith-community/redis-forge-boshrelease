@@ -26,6 +26,16 @@ templates:
   plans/cluster-6/init:               plans/cluster-6/init
 
 properties:
+  environment:
+    description: The environment name of the cloudfoundry/bosh deployment
+
+  bosh_env:
+    description: The environment name of the bosh deployment if different from cloudfoundry (defaults to environment)
+
+  persistent_disk_pool:
+    description: BOSH Cloud Config Persistent Disk Pool Name (optional)
+    default: ""
+
   service.id:
     description: Machine-friendly name for this service.
     default: redis
@@ -45,12 +55,6 @@ properties:
   service.limit:
     description: A global limit on the number of Redis services (regardless of the plan); 0 = unlimited.
     default: 0
-
-  environment:
-    description: The environment name of the cloudfoundry/bosh deployment
-
-  bosh_env:
-    description: The environment name of the bosh deployment if different from cloudfoundry (defaults to environment)
 
   redis.tls.enabled:
     description: "Should the Redis use TLS"
