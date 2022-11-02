@@ -41,8 +41,8 @@ update:
 
 instance_groups:
   - name: node
-    <% unless p("persistent_disk_pool").empty? -%>
-    persistent_disk_pool: <%= p("persistent_disk_pool") %>
+    <% unless p("persistent_disk_type").empty? -%>
+    persistent_disk_type: <%= p("persistent_disk_type") %>
     <% end -%>
     instances: (( grab meta.instances ))
     azs: (( grab meta.azs || meta.default.azs ))

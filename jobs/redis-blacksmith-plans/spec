@@ -32,8 +32,8 @@ properties:
   bosh_env:
     description: The environment name of the bosh deployment if different from cloudfoundry (defaults to environment)
 
-  persistent_disk_pool:
-    description: BOSH Cloud Config Persistent Disk Pool Name (optional)
+  persistent_disk_type:
+    description: BOSH Cloud Config Persistent Disk Type Name (optional)
     default: ""
 
   service.id:
