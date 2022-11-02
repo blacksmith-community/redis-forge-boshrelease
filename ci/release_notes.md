@@ -1,0 +1,1 @@
+Disk template rendering.
