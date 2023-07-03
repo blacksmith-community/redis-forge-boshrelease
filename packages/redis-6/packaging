@@ -8,7 +8,7 @@ CPUS=$(grep -c ^processor /proc/cpuinfo)
 # $BOSH_INSTALL_TARGET - where you copy/install files to be included in package
 export HOME=/var/vcap
 
-tar -xzvf redis/redis-6.2.6.tar.gz
-cd redis-6.2.6
+tar -xzvf redis/redis-6.2.12.tar.gz
+cd redis-6.2.12
 export PREFIX=${BOSH_INSTALL_TARGET}
 make BUILD_TLS=yes -j$CPUS && make install
