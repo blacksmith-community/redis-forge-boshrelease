@@ -1,0 +1,55 @@
+name: redis-forge
+version: 1.0.0-rc.1
+commit_hash: "4143e87"
+uncommitted_changes: false
+jobs:
+- name: cluster
+  version: 3d11165a49d1abab9839ef0087aa94a0010a9c09ee9cadc5e06255db447610b8
+  fingerprint: 3d11165a49d1abab9839ef0087aa94a0010a9c09ee9cadc5e06255db447610b8
+  sha1: sha256:bb1b21e159a73a70e0a275618f32a5ab5139ce8039cb3d1948e82a4306314b4b
+  packages:
+  - redis
+- name: cluster-6
+  version: 79c327138f3a86877dfc92f647537ce9624acf88523399692a7d68a3fdb67dea
+  fingerprint: 79c327138f3a86877dfc92f647537ce9624acf88523399692a7d68a3fdb67dea
+  sha1: sha256:30b6c0afc5816dc3c89880aab053e2fa88665b6d3f6680cec3636b8103684006
+  packages:
+  - redis-6
+  - stunnel
+- name: redis-blacksmith-plans
+  version: c78a16fd3e229deb3cb20842964c47482c791e6854ce25c9efddaded85548ac2
+  fingerprint: c78a16fd3e229deb3cb20842964c47482c791e6854ce25c9efddaded85548ac2
+  sha1: sha256:2f2fab315f98a97a52a92e45e1e38266f91e000c85de98d946d634700d16b19f
+  packages: []
+- name: standalone
+  version: 843697cff6bf309d15472a69bd9cc22730901dc1266e14815abc5131cd5dd1e9
+  fingerprint: 843697cff6bf309d15472a69bd9cc22730901dc1266e14815abc5131cd5dd1e9
+  sha1: sha256:9f7004f66a671d8ad3fc47b7ed4325cb4020cc3ec413398b0b2796a0825a3182
+  packages:
+  - redis
+- name: standalone-6
+  version: 260a6e227f311c22e46f17d213ec2244e62c14ae934fe1b6a8df392e1e9abd84
+  fingerprint: 260a6e227f311c22e46f17d213ec2244e62c14ae934fe1b6a8df392e1e9abd84
+  sha1: sha256:95d35ce57c9eb9ba5c7e9adee044f8336e2440e52aad915ecc7a6df3a74fc4c7
+  packages:
+  - redis-6
+packages:
+- name: redis
+  version: 8ec517529bec18f0a36c3efadd729972651cd456001f78e2bbb490cd86a6c95b
+  fingerprint: 8ec517529bec18f0a36c3efadd729972651cd456001f78e2bbb490cd86a6c95b
+  sha1: sha256:495a0d333f5efe232775507b50190f30777a39788f6f69056d4a23cbb7f9c9da
+  dependencies: []
+- name: redis-6
+  version: ec31b06a6898f9ae9341f4c357746e05889d5db7a458dec3872cc9e9e35a559f
+  fingerprint: ec31b06a6898f9ae9341f4c357746e05889d5db7a458dec3872cc9e9e35a559f
+  sha1: sha256:0a8931e2f8297f426b039eafdb51756d9433a7490143b3dd13a3cecdc94f8da3
+  dependencies: []
+- name: stunnel
+  version: 2a16a02a035193ffcc0642e74dfb151f73029bd26485a20e289bf9c9d073283b
+  fingerprint: 2a16a02a035193ffcc0642e74dfb151f73029bd26485a20e289bf9c9d073283b
+  sha1: sha256:eae8cca02c41feea9205679d50b1dd1f3c5cd8c7273b68a0d670c3aab799532e
+  dependencies: []
+license:
+  version: 2ddf44a51ba997973997ce5343ce1bdc8ee0d1bce5c91d6f0db4fb1386a58cb1
+  fingerprint: 2ddf44a51ba997973997ce5343ce1bdc8ee0d1bce5c91d6f0db4fb1386a58cb1
+  sha1: sha256:1cdbc5f984b80710798e07a1b285d3fbbbc05d2c9b2c27e3f35f12a809a93ef9
