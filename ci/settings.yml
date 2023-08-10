@@ -7,7 +7,7 @@ meta:
   iaas:            vsphere
   exposed:         no
   version_file:    version
-  initial_version: 2.1.0
+  initial_version: 0.0.1
 
   manifest:
     path: ci/manifest.yml
@@ -31,7 +31,7 @@ meta:
     repo:   redis-forge-boshrelease
     branch: master
     private_key:  ((cloudfoundry-community-ci-bot-github.private_key))
-    access_token: ((cloudfoundry-community-ci-bot-github.access_token))
+    access_token: ((cloudfoundry-community-ci-bot-github.access_tokeni_rw))
 
   shout:
     url:      ((shout.url))
