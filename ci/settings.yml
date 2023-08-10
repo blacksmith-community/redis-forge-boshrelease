@@ -4,13 +4,17 @@ meta:
   release: Blacksmith Redis Forge
   target:  pipes/blacksmith
   url:     https://pipes.scalecf.net
+  iaas:            vsphere
+  exposed:         no
+  version_file:    version
+  initial_version: 2.1.0
 
   manifest:
     path: ci/manifest.yml
 
   git:
-    name:  ((cloudfoundry-community-ci-github.name))
-    email: ((cloudfoundry-community-ci-github.email))
+    name:  ((cloudfoundry-community-ci-bot-github.name))
+    email: ((cloudfoundry-community-ci-bot-github.email))
 
   bosh-lite:
     target:   ((thunder-dome.url))
