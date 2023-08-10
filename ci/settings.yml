@@ -2,15 +2,15 @@
 meta:
   name:    redis-forge
   release: Blacksmith Redis Forge
-  target:  blacksmith@pipes
-  url:     https://cloudpipes.starkandwayne.com
+  target:  pipes/blacksmith
+  url:     https://pipes.scalecf.net
 
   manifest:
     path: ci/manifest.yml
 
   git:
-    name: Stark & Wayne CI Bot
-    email: ci@starkandwayne.com
+    name:  ((cloudfoundry-community-ci-github.name))
+    email: ((cloudfoundry-community-ci-github.email))
 
   bosh-lite:
     target:   ((thunder-dome.url))
@@ -19,15 +19,15 @@ meta:
     cacert:   ((thunder-dome.ca-certificate))
 
   aws:
-    access_key: ((cfcommunity.access))
-    secret_key: ((cfcommunity.secret))
+    access_key: ((cloudfoundry-community-aws.access_key_id))
+    secret_key: ((cloudfoundry-community-aws.secret_access_key))
 
   github:
     owner:  blacksmith-community
     repo:   redis-forge-boshrelease
     branch: master
-    private_key:  ((starkandwayne-bot-github.private-key))
-    access_token: ((starkandwayne-bot-github.access-token))
+    private_key:  ((cloudfoundry-community-ci-bot-github.private_key))
+    access_token: ((cloudfoundry-community-ci-bot-github.access_token))
 
   shout:
     url:      ((shout.url))

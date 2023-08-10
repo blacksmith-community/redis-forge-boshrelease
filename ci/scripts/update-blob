@@ -33,6 +33,8 @@ checkenv() {
   fi
 }
 checkenv REPO_ROOT        "${REPO_ROOT:-}"
+checkenv GIT_EMAIL        "${GIT_EMAIL:-}"
+checkenv GIT_NAME         "${GIT_NAME:-}"
 checkenv BLOB_DIR         "${BLOB_DIR:-}"
 checkenv BLOB_NAME        "${BLOB_NAME:-}"
 checkenv BLOB_BINARY      "${BLOB_BINARY:-}"
@@ -129,10 +131,10 @@ EOF
 
   # GIT!
   if [[ -z $(git config --global user.email) ]]; then
-    git config --global user.email "ci@starkandwayne.com"
+    git config --global user.email "$GIT_EMAIL"
   fi
   if [[ -z $(git config --global user.name) ]]; then
-    git config --global user.name "CI Bot"
+    git config --global user.name "$GIT_NAME"
   fi
 
   (cd ${REPO_ROOT}
