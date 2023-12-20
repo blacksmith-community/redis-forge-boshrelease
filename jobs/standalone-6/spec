@@ -21,6 +21,8 @@ templates:
   dns/aliases.json.erb: dns/aliases.json
 
 properties:
+  service.type:
+    default: "standalone-6"
   auth.password:
     description: The password required of clients wishing to use this Redis instance.
 
