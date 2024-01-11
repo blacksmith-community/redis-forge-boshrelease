@@ -48,34 +48,28 @@ function redis() {
 
 <%
   ips = link('redis').instances.map { |instance| instance.address }
-  masters = ( 0                    .. (p('cluster.masters')-1) ).map { |i| ips[i] }
-  slaves  = ( p('cluster.masters') .. (ips.size - 1)           ).map { |i| ips[i] }.shuffle(random: Random.new(1))
+  bash_ips = ips.join(' ')
+  masters = (0 .. (p('cluster.masters') - 1)).map { |i| ips[i] }
+  slaves = (p('cluster.masters') .. (ips.size - 1)).map { |i| ips[i] }
 
   SLOTS = 16384
-  per   = (SLOTS / masters.size).to_i
-  first = 0
-  last  = first + per - 1
+  slots_per_master = (SLOTS / masters.size).to_i
 
-  cluster  = {}
-  masters.each do |master|
-    cluster[master] = []
-    for i in 0 .. (p('cluster.replicas') - 1) do
-      cluster[master] << slaves[i % slaves.size]
-    end
-  end
+  cluster = {}
+  masters.each_with_index do |master, index|
+    first_slot = index * slots_per_master
+    last_slot = ((index + 1) * slots_per_master) - 1
+    last_slot = SLOTS - 1 if index == masters.size - 1 # Adjust for the last master
 
-  def tail(ll,x)
-    l = nil
-    ll.each do |y|
-      if y == x
-        l = []
-      elsif l != nil
-        l << y
-      end
-    end
-    l
+    assigned_slaves = slaves.each_slice((slaves.size / masters.size).to_i).to_a
+    cluster[master] = {
+      'slots' => (first_slot..last_slot).to_a,
+      'slaves' => assigned_slaves[index] # Assign slaves to each master
+    }
   end
 %>
+
+
 <% ips.each do |ip| %>log "found cluster member <%= ip %>:6379"
 <% end %>
 log "checking if clustering is enabled"
@@ -93,16 +87,41 @@ log "checking if clustering is already configured"
 log "clustering is not yet configured"
 
 log "introducing nodes to each other"
-<% ips.each do |a| %><% tail(ips, a).each do |b| %>redis "<%= a %>" CLUSTER MEET <%= b %> 6379
-<% end %><% end %>log "node introductions complete"
+IPS_ARRAY=(<%= bash_ips %>)
 
-# set up the masters
-<% masters.each do |ip| %>redis "<%= ip %>" CLUSTER ADDSLOTS $(seq <%= first %> <%= last %>)
-<% first = last + 1; last = SLOTS - last < per ? SLOTS - 1 : first + per - 1 %><% end %>
-# set up slaves
-<% cluster.each do |master, slaves| %>MASTER=$(redis "<%= master %>" CLUSTER NODES | grep myself | awk '{print $1}')
-<% slaves.each do |slave| %>redis <%= slave %> CLUSTER REPLICATE "$MASTER"
-<% end %><% end %>log "configuration set"
+len=${#IPS_ARRAY[@]}
+for ((i = 0; i < len; i++)); do
+    for ((j = i + 1; j < len; j++)); do
+        a=${IPS_ARRAY[i]}
+        b=${IPS_ARRAY[j]}
+
+        # Resolve DNS to IP
+        ip_a=$(dig +short "$a")
+        ip_b=$(dig +short "$b")
+
+        if [ -n "$ip_a" ] && [ -n "$ip_b" ]; then
+            log "Introducing $a ($ip_a) to $b ($ip_b)"
+            redis "$ip_a" CLUSTER MEET "$ip_b" 6379
+        else
+            log "Failed to resolve DNS for $a or $b"
+        fi
+    done
+done
+log "Node introductions complete"
+
+# Set up the masters and assign slots
+<% cluster.each do |master, config| %>
+  redis "<%= master %>" CLUSTER ADDSLOTS $(seq <%= config['slots'].first %> <%= config['slots'].last %>)
+<% end %>
+
+# Set up slaves
+<% cluster.each do |master, config| %>
+  MASTER_ID=$(redis "<%= master %>" CLUSTER NODES | grep myself | awk '{print $1}')
+  <% config['slaves'].each do |slave| %>
+    redis "<%= slave %>" CLUSTER REPLICATE "$MASTER_ID"
+  <% end %>
+<% end %>
+log "configuration set"
 
 log "waiting for all nodes to be connected to all other nodes"
 n=<%= p('cluster.boot_wait') %>
