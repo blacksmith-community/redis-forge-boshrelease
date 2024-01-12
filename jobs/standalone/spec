@@ -11,6 +11,8 @@ templates:
   helpers/ctl_utils.sh: helpers/ctl_utils.sh
 
 properties:
+  service.type:
+    default: "standalone"
   auth.password:
     description: The password required of clients wishing to use this Redis instance.
 
