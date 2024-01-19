@@ -56,6 +56,9 @@ properties:
     description: A global limit on the number of Redis services (regardless of the plan); 0 = unlimited.
     default: 0
 
+  service.type:
+    description: Type of redis instance, standalone or cluster
+
   redis.tls.enabled:
     description: "Should the Redis use TLS"
     default: false

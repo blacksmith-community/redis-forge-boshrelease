@@ -22,6 +22,8 @@ consumes:
     type: conn
 
 properties:
+  service.type:
+    default: "cluster"
   auth.password:
     description: The password required of clients wishing to use this Redis instance.
 
