@@ -14,6 +14,8 @@ instance_groups:
       properties:
         environment: default
         bosh_env: default
+        service:
+          type: standalone
         plans:
           standalone:
             name: standalone
