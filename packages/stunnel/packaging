@@ -10,7 +10,7 @@ CPUS=$(grep -c ^processor /proc/cpuinfo)
 export HOME=/var/vcap
 export PREFIX=${BOSH_INSTALL_TARGET}
 
-VERSION=5.69
+VERSION=5.71
 
 gzip -dc stunnel/stunnel-${VERSION}.tar.gz | tar -xvf -
 cd stunnel-${VERSION} && ./configure --prefix=${PREFIX}

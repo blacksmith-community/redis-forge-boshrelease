@@ -2,11 +2,11 @@ redis/redis-5.0.14.tar.gz:
   size: 2000179
   object_id: 7f4f2ddd-f4e2-417c-7ab9-8e3eebf448ed
   sha: sha256:3ea5024766d983249e80d4aa9457c897a9f079957d0fb1f35682df233f997f32
-redis/redis-6.2.12.tar.gz:
-  size: 2516490
-  object_id: 75e5b2c5-febc-4e88-56b7-e08a67d3c7c8
-  sha: sha256:a195479b676221557e0b3ee9f51f824e2b2a2ef4d62ba41960947ff94fe72f14
-stunnel/stunnel-5.69.tar.gz:
-  size: 879988
-  object_id: b344eeed-4062-4685-572b-a903362c16f0
-  sha: sha256:1ff7d9f30884c75b98c8a0a4e1534fa79adcada2322635e6787337b4e38fdb81
+redis/redis-6.2.14.tar.gz:
+  size: 2496149
+  object_id: 97ac36c3-e0e5-46d7-631e-8993a8ea2305
+  sha: sha256:34e74856cbd66fdb3a684fb349d93961d8c7aa668b06f81fd93ff267d09bc277
+stunnel/stunnel-5.71.tar.gz:
+  size: 895646
+  object_id: 9eca9421-d916-4a1c-7dd1-d6d286dc4c00
+  sha: sha256:f023aae837c2d32deb920831a5ee1081e11c78a5d57340f8e6f0829f031017f5
