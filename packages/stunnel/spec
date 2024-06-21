@@ -2,4 +2,4 @@
 name: stunnel
 dependencies: []
 files:
-- stunnel/stunnel-5.71.tar.gz
+- stunnel/stunnel-5.72.tar.gz

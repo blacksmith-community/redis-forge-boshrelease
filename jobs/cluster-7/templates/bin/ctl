@@ -1,0 +1,35 @@
+#!/bin/bash
+set -eu
+
+JOB_NAME=${JOB_NAME:-"cluster-7"}
+JOBS_PATH=/var/vcap/jobs/${JOB_NAME} # cluster-7
+PIDFILE=/var/vcap/sys/run/cluster-7/cluster-7.pid
+
+source ${JOBS_PATH}/helpers/ctl_setup.sh ${JOB_NAME}
+
+export LANG=en_US.UTF-8
+
+case $1 in
+  (start)
+    pid_guard $PIDFILE $JOB_NAME
+
+    sysctl vm.overcommit_memory=1
+    echo never > /sys/kernel/mm/transparent_hugepage/enabled || true
+
+    cd /var/vcap/store/cluster-7
+
+    echo $$ > $PIDFILE
+    exec chpst -u vcap:vcap redis-server \
+      $JOB_DIR/config/redis.conf \
+      >>$LOG_DIR/$JOB_NAME.log 2>&1
+    ;;
+
+  (stop)
+    kill_and_wait $PIDFILE
+    ;;
+
+  (*)
+    echo "Usage: ctl {start|stop}"
+    ;;
+esac
+exit 0

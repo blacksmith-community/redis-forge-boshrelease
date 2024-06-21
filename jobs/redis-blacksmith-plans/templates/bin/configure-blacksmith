@@ -122,9 +122,9 @@ meta:
   <% if plan["exporter"] %>
 releases:
 - name:    prometheus
-  version: 26.3.0
-  url:     https://bosh.io/d/github.com/cloudfoundry-community/prometheus-boshrelease?v=26.3.0
-  sha1:    d945d88b23dbfea03959d5404450567a90a7d833
+  version: 30.2.0
+  url:     https://bosh.io/d/github.com/cloudfoundry-community/prometheus-boshrelease?v=30.2.0
+  sha1:    0ba6f3eae9071fb554082398997d57a742c3fe3c
 
 instance_groups:
 - name: <%= plan["type"] =~ /standalone/ ? "standalone" : "node" %>

@@ -1,0 +1,10 @@
+<% if p('redis.tls.enabled') -%>
+<% if_p("redis.tls.ca_cert") do |cert|
+  if !cert.match('CERTIFICATE')
+    cert = cert.gsub(/^(.{40}).*/, '\1...')
+    raise "redis.tls.ca_cert '#{cert}' does not look like a TLS certificate"
+  end
+%>
+<%= p('redis.tls.ca_cert') %>
+<% end %>
+<% end -%>
