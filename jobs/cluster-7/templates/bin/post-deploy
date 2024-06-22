@@ -1,0 +1,145 @@
+#!/bin/bash
+
+function log() {
+  echo "[$(date)] $*"
+}
+
+<% if !spec.bootstrap %>log "this node is not the bootstrap node; nothing to do."
+exit 0
+<% else %>set -eu
+exec >&2
+
+<% if p('redis.tls.enabled') -%>
+mkdir -p /var/vcap/sys/run/stunnel
+
+function redis() {
+  local ip=$1 ; shift
+
+  # Generate the stunnel configuration for TLS connections.
+  cat > /var/vcap/packages/stunnel/stunnel.conf << EOF
+pid=/var/vcap/sys/run/stunnel/stunnel.pid
+[redis-cli]
+  client = yes
+  accept = 127.0.0.1:8000
+  connect = $ip:<%= p('redis.tls.dual-mode') ? 16379 : 6379 %>
+EOF
+
+  # Launch stunnel with the configuration that was just generated.
+  /var/vcap/packages/stunnel/bin/stunnel \
+    /var/vcap/packages/stunnel/stunnel.conf &> /dev/null
+
+  # Execute the actual redis-cli command.
+  (echo "AUTH <%= p('auth.password') %>"; echo $*) \
+    | /var/vcap/packages/redis-7/bin/redis-cli -h 127.0.0.1 -p 8000 \
+    | tr -d '\r';
+  
+  # Cleanup stunnel.
+  kill $(cat /var/vcap/sys/run/stunnel/stunnel.pid) || true
+  rm /var/vcap/packages/stunnel/stunnel.conf
+}
+<% else %>
+function redis() {
+  local ip=$1 ; shift
+  (echo "AUTH <%= p('auth.password') %>"; echo $*) \
+    | /var/vcap/packages/redis-7/bin/redis-cli -h $ip \
+    | tr -d '\r';
+}
+<% end %>
+
+<%
+  ips = link('redis').instances.map { |instance| instance.address }
+  bash_ips = ips.join(' ')
+  masters = (0 .. (p('cluster.masters') - 1)).map { |i| ips[i] }
+  slaves = (p('cluster.masters') .. (ips.size - 1)).map { |i| ips[i] }
+
+  SLOTS = 16384
+  slots_per_master = (SLOTS / masters.size).to_i
+
+  cluster = {}
+  masters.each_with_index do |master, index|
+    first_slot = index * slots_per_master
+    last_slot = ((index + 1) * slots_per_master) - 1
+    last_slot = SLOTS - 1 if index == masters.size - 1 # Adjust for the last master
+
+    assigned_slaves = slaves.each_slice((slaves.size / masters.size).to_i).to_a
+    cluster[master] = {
+      'slots' => (first_slot..last_slot).to_a,
+      'slaves' => assigned_slaves[index] # Assign slaves to each master
+    }
+  end
+%>
+
+
+<% ips.each do |ip| %>log "found cluster member <%= ip %>:6379"
+<% end %>
+log "checking if clustering is enabled"
+rc=0
+<% ips.each do |ip| %>if ! redis "<%= ip %>" INFO | grep -q '^cluster_enabled:1$'; then
+  log "clustering is NOT enabled on <%= ip %>:6379"
+  rc=1
+fi
+<% end %>[ $rc == 0 ] || exit 1
+log "clustering is enabled on all nodes"
+
+log "checking if clustering is already configured"
+<% ips.each do |ip| %>redis "<%= ip %>" CLUSTER NODES
+<% end %>
+log "clustering is not yet configured"
+
+log "introducing nodes to each other"
+IPS_ARRAY=(<%= bash_ips %>)
+
+len=${#IPS_ARRAY[@]}
+for ((i = 0; i < len; i++)); do
+    for ((j = i + 1; j < len; j++)); do
+        a=${IPS_ARRAY[i]}
+        b=${IPS_ARRAY[j]}
+
+        # Resolve DNS to IP
+        ip_a=$(dig +short "$a")
+        ip_b=$(dig +short "$b")
+
+        if [ -n "$ip_a" ] && [ -n "$ip_b" ]; then
+            log "Introducing $a ($ip_a) to $b ($ip_b)"
+            redis "$ip_a" CLUSTER MEET "$ip_b" 6379
+        else
+            log "Failed to resolve DNS for $a or $b"
+        fi
+    done
+done
+log "Node introductions complete"
+
+# Set up the masters and assign slots
+<% cluster.each do |master, config| %>
+  redis "<%= master %>" CLUSTER ADDSLOTS $(seq <%= config['slots'].first %> <%= config['slots'].last %>)
+<% end %>
+
+# Set up slaves
+<% cluster.each do |master, config| %>
+  MASTER_ID=$(redis "<%= master %>" CLUSTER NODES | grep myself | awk '{print $1}')
+  <% config['slaves'].each do |slave| %>
+    redis "<%= slave %>" CLUSTER REPLICATE "$MASTER_ID"
+  <% end %>
+<% end %>
+log "configuration set"
+
+log "waiting for all nodes to be connected to all other nodes"
+n=<%= p('cluster.boot_wait') %>
+while [[ $n -gt 0 ]]; do
+  rc=0
+<% ips.each do |ip| %>  if redis "<%= ip %>" CLUSTER NODES | grep disconnected; then
+    rc=1
+  fi
+<% end %>
+  if [[ $rc == 0 ]]; then
+    log "cluster settled"
+<% ips.each do |ip| %>    redis "<%= ip %>" CLUSTER NODES
+<% end %>
+    exit 0
+  fi
+  sleep 1
+  n=$((n - 1))
+done
+log "timed out after <%= p('cluster.boot_wait') %> seconds, waiting for nodes to connect.  cluster is UNHEALTHY"
+exit 1
+<% end %>

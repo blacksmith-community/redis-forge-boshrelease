@@ -25,6 +25,14 @@ templates:
   plans/cluster-6/credentials.yml:    plans/cluster-6/credentials.yml
   plans/cluster-6/init:               plans/cluster-6/init
 
+  plans/standalone-7/manifest.yml:    plans/standalone-7/manifest.yml
+  plans/standalone-7/credentials.yml: plans/standalone-7/credentials.yml
+  plans/standalone-7/init:            plans/standalone-7/init
+
+  plans/cluster-7/manifest.yml:       plans/cluster-7/manifest.yml
+  plans/cluster-7/credentials.yml:    plans/cluster-7/credentials.yml
+  plans/cluster-7/init:               plans/cluster-7/init
+
 properties:
   environment:
     description: The environment name of the cloudfoundry/bosh deployment

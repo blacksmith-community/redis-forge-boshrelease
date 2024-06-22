@@ -1,0 +1,14 @@
+#!/bin/bash
+
+export JOB_DIR=/var/vcap/jobs/cluster-7
+export DATA_DIR=/var/vcap/data/cluster-7
+
+openssl req -new -nodes -days 730 -newkey rsa:2048 -keyout $DATA_DIR/redis.key -out $DATA_DIR/redis.csr -config $JOB_DIR/config/req.conf -extensions 'v3_req'
+
+openssl x509 -req -in $DATA_DIR/redis.csr -CA $JOB_DIR/config/tls/redis.cert -CAkey $JOB_DIR/config/tls/redis.key -CAcreateserial -out $DATA_DIR/redis.crt -days 825 -sha256
+
+cp $JOB_DIR/config/tls/redis.ca /usr/local/share/ca-certificates/redis.crt
+update-ca-certificates
+
+chown vcap:vcap $DATA_DIR/*
+

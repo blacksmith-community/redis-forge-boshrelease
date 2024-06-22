@@ -1,0 +1,5 @@
+---
+name: redis-7
+dependencies: []
+files:
+  - redis/redis-7.2.5.tar.gz
