@@ -23,6 +23,13 @@ cat > $PLANROOT/plan.yml <<EOF
 id: <%= id %>
 name: <%= plan["name"] || id %>
 limit: <%= plan["limit"] || 0 %>
+type: <%= if plan["type"].include?("standalone")
+            "standalone"
+          elsif plan["type"].include?("cluster")
+            "node"
+          else
+            plan["type"]
+          end %>
 description: |+
   <%= plan["description"] || 'no description provided' %>
 EOF
