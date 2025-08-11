@@ -5,7 +5,7 @@ description: |-
   <%= p('service.description') %>
 tags:
 <% p('service.tags', []).each do |tag| -%>
-  - <%= tag %>
+- <%= tag %>
 <% end -%>
 bindable: true
 type: <%= p('service.type') %>
