@@ -11,6 +11,4 @@ bindable: true
 type: <%= p('service.type') %>
 metadata: {}
 plan_updateable: true
-<% if p('service.limit') > 0 -%>
-limit: <%= p('service.limit') %>
-<% end -%>
+<% if p('service.limit') > 0 -%>limit: <%= p('service.limit') %><% end -%>
