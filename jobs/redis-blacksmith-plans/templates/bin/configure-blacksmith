@@ -1,28 +1,24 @@
 #!/bin/bash
 set -eu
 
-PLANSRC=/var/vcap/jobs/redis-blacksmith-plans/plans
-SVCROOT=/var/vcap/data/blacksmith/redis-forge/services
-echo -e "Plan Source: $PLANSRC"
-echo -e "Service Root: $SVCROOT"
-rm    -rf $SVCROOT
-mkdir -p  $SVCROOT
+PLANSRC="/var/vcap/jobs/redis-blacksmith-plans/plans"
+SVCROOT="/var/vcap/data/blacksmith/redis-forge/services"
+echo -e "Plan Source: ${PLANSRC}\nService Root: ${SVCROOT}"
+rm    -rf "$SVCROOT"
+mkdir -p  "$SVCROOT"
 
 echo -e "Copying the service definition stub for Blacksmith: $PLANSRC/service.yml => $SVCROOT"
-cp $PLANSRC/service.yml $SVCROOT
+cp "$PLANSRC/service.yml" "$SVCROOT"
 
-<% p('plans').each do |id, plan| %>
+<% p('plans').each do |id, plan| -%>
 ##############################################
 #
 # Set up plan <%= id %>
 #
 PLANROOT="$SVCROOT/<%= id %>"
-echo -e "Plan Root: $SVCROOT/<%= id %>"
-PLANTYPE="<%= plan["type"] || 'standalone' %>"
-echo -e "Plan Type: $PLANTYPE"
-
 mkdir -p $PLANROOT
-
+PLANTYPE="<%= plan["type"] || 'standalone' %>"
+echo -e "Plan Root: $SVCROOT/<%= id %>\nPlan Type: $PLANTYPE"
 echo -e "Writing: $PLANROOT/plan.yml"
 cat > $PLANROOT/plan.yml <<EOF
 ---
@@ -42,9 +38,9 @@ EOF
 
 for file in init credentials.yml manifest.yml; do
   echo -e "Copying: $PLANSRC/$PLANTYPE/$file => $PLANROOT/"
-  cp $PLANSRC/$PLANTYPE/$file $PLANROOT/
+  cp "$PLANSRC/$PLANTYPE/$file" "$PLANROOT/"
 done
-chmod 0755 $PLANROOT/init
+chmod 0755 "$PLANROOT/init"
 
 echo -e "Writing: $PLANROOT/params.yml"
 cat > $PLANROOT/params.yml <<EOF
@@ -55,86 +51,90 @@ meta:
   size: <%= plan["vm_type"] || 'default' %>
   net:  <%= plan["network"] || 'redis-service' %>
 
-  <% if plan["redis_maxmemory-policy"] %>
+<% if plan["redis_maxmemory-policy"] -%>
   redis_maxmemory-policy: <%= plan["redis_maxmemory-policy"] %>
-  <% end %>
+<% end -%>
 
-  <% if p('redis.tls.enabled') %>
+<% if p('redis.tls.enabled') -%>
   redis:
     tls:
       enabled: true
       ca: (( file "/var/vcap/jobs/redis-blacksmith-plans/config/tls/redis.ca" ))
       ca_cert: (( file "/var/vcap/jobs/redis-blacksmith-plans/config/tls/redis.cert" ))
       ca_key: (( file "/var/vcap/jobs/redis-blacksmith-plans/config/tls/redis.key" ))
-  <% end %>
-
-  <% if p('redis.tls.dual-mode') -%>
+<% if p('redis.tls.dual-mode') -%>
       dual-mode: true
-  <% end %>
+<% end -%>
+<% end -%>
 
-  <% if plan["redis_maxmemory"] %>
+<% if plan["redis_maxmemory"] -%>
   redis_maxmemory: <%= plan["redis_maxmemory"] %>
-  <% end %>
+<% end -%>
 
-  <% if plan["redis_notify-keyspace-events"] %>
+<% if plan["redis_notify-keyspace-events"] -%>
   redis_notify-keyspace-events: <%= plan["redis_notify-keyspace-events"] %>
-  <% end %>
+<% end -%>
 
-  <% if plan["redis_slowlog-log-slower-than"] %>
+<% if plan["redis_slowlog-log-slower-than"] -%>
   redis_slowlog-log-slower-than: <%= plan["redis_slowlog-log-slower-than"] %>
-  <% end %>
+<% end -%>
 
-  <% if plan["redis_slowlog-max-len"] %>
+<% if plan["redis_slowlog-max-len"] -%>
   redis_slowlog-max-len: <%= plan["redis_slowlog-max-len"] %>
-  <% end %>
+<% end -%>
 
-  <% if plan.has_key?("redis_no-appendfsync-on-rewrite") %>
+<% if plan.has_key?("redis_no-appendfsync-on-rewrite") -%>
   redis_no-appendfsync-on-rewrite: <%= plan["redis_no-appendfsync-on-rewrite"] ? "yes" : "no" %>
-  <% end %>
+<% end -%>
 
-  <% if plan["redis_auto-aof-rewrite-percentage"] %>
+<% if plan["redis_auto-aof-rewrite-percentage"] -%>
   redis_auto-aof-rewrite-percentage: <%= plan["redis_auto-aof-rewrite-percentage"] %>
-  <% end %>
+<% end -%>
 
-  <% if plan["redis_auto-aof-rewrite-min-size"] %>
+<% if plan["redis_auto-aof-rewrite-min-size"] -%>
   redis_auto-aof-rewrite-min-size: <%= plan["redis_auto-aof-rewrite-min-size"] %>
-  <% end %>
+<% end -%>
 
-  <% if plan["client_timeout"] %>
+<% if plan["client_timeout"] -%>
   client_timeout: <%= plan["client_timeout"] %>
-  <% end %>
-  <% if plan["client_tcpkeepalive"] %>
-  client_tcpkeepalive: <%= plan["client_tcpkeepalive"] %>
-  <% end %>
-  <% if plan["client_connections"] %>
-  client_connections: <%= plan["client_connections"] %>
-  <% end %>
-  <% if plan.has_key?("lua_scripting_enabled") %>
-  lua_scripting_enabled: <%= plan["lua_scripting_enabled"] %>
-  <% end %>
-  <% if plan["azs"] %>
-  azs: <%= plan["azs"] %>
-  <% end %>
-  <% if plan["type"] =~ /standalone/ %>
-  <% if plan["persist"] %>
-  persistent: true
-  <% if plan["disk_type"] %>
-  disk_config: { persistent_disk_type: <%= plan["disk_type"] %> }
-  <% else %>
-  disk_config: { persistent_disk: <%= plan["disk_size"] || 1_024 %> }
-  <% end %>
-  <% else %>
-  persistent: false
-  <% end %>
-  <% end %>
+<% end -%>
 
-  <% if plan["type"] =~ /cluster/ && plan["masters"] > 0 %>
+<% if plan["client_tcpkeepalive"] -%>
+  client_tcpkeepalive: <%= plan["client_tcpkeepalive"] %>
+<% end -%>
+
+<% if plan["client_connections"] -%>
+  client_connections: <%= plan["client_connections"] %>
+<% end -%>
+
+<% if plan.has_key?("lua_scripting_enabled") -%>
+  lua_scripting_enabled: <%= plan["lua_scripting_enabled"] %>
+<% end -%>
+
+<% if plan["azs"] -%>
+  azs: <%= plan["azs"] %>
+<% end -%>
+
+<% if plan["type"] =~ /standalone/ -%>
+<%   if plan["persist"] -%>
+  persistent: true
+<%     if plan["disk_type"] -%>
+  disk_config: { persistent_disk_type: <%= plan["disk_type"] %> }
+<%     else %>
+  disk_config: { persistent_disk: <%= plan["disk_size"] || 1_024 %> }
+<%     end -%>
+<%   else %>
+  persistent: false
+<%   end -%>
+<% end -%>
+
+<% if plan["type"] =~ /cluster/ && plan["masters"] > 0 -%>
   masters:   <%= plan["masters"] %>
   replicas:  <%= plan["replicas"] || 1 %>
   instances: <%= plan["masters"] + plan["masters"] * (plan["replicas"] || 1) %>
-  <% end %>
+<% end -%>
 
-  <% if plan["exporter"] %>
+<% if plan["exporter"] -%>
 releases:
 - name:    "prometheus"
   version: "<%= plan["prometheus_release_version"] || "30.2.0" %>
@@ -150,7 +150,7 @@ instance_groups:
       redis_exporter:
         redis:
           password: (( grab meta.password ))
-  <% end %>
+<% end -%>
 EOF
+<% end -%>
 
-<% end %>
