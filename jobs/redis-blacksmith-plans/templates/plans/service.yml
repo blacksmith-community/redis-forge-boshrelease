@@ -4,11 +4,13 @@ name: <%= p('service.name') %>
 description: |-
   <%= p('service.description') %>
 tags:
-<% p('service.tags', []).each do |tag| -%>
+<% p('service.tags', []).each do |tag| %>
 - <%= tag %>
 <% end -%>
 bindable: true
 type: <%= p('service.type') %>
 metadata: {}
 plan_updateable: true
-<% if p('service.limit') > 0 -%>limit: <%= p('service.limit') %><% end -%>
+<% if p('service.limit') > 0 %>
+limit: <%= p('service.limit') %>
+<% end %>
