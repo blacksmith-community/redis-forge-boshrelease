@@ -59,9 +59,15 @@ meta:
   redis:
     tls:
       enabled: true
+<% if_p('redis.tls.ca') do -%>
       ca: (( file "/var/vcap/jobs/redis-blacksmith-plans/config/tls/redis.ca" ))
+<% end -%>
+<% if_p('redis.tls.ca_cert') do -%>
       ca_cert: (( file "/var/vcap/jobs/redis-blacksmith-plans/config/tls/redis.cert" ))
+<% end -%>
+<% if_p('redis.tls.ca_key') do -%>
       ca_key: (( file "/var/vcap/jobs/redis-blacksmith-plans/config/tls/redis.key" ))
+<% end -%>
 <% if p('redis.tls.dual-mode') -%>
       dual-mode: true
 <% end -%>

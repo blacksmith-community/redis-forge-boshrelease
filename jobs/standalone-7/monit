@@ -1,5 +1,5 @@
 check process standalone-7
-  with pidfile /var/vcap/sys/run/standalone-7/standalone-7.pid
-  start program "/var/vcap/jobs/standalone-7/bin/monit_debugger standalone-7_ctl '/var/vcap/jobs/standalone-7/bin/ctl start'"
-  stop program "/var/vcap/jobs/standalone-7/bin/monit_debugger standalone-7_ctl '/var/vcap/jobs/standalone-7/bin/ctl stop'"
+  with pidfile /var/vcap/sys/run/bpm/standalone-7/standalone-7.pid
+  start program "/var/vcap/jobs/bpm/bin/bpm start standalone-7"
+  stop program "/var/vcap/jobs/bpm/bin/bpm stop standalone-7"
   group vcap

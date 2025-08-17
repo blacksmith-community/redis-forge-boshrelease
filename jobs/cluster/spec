@@ -3,13 +3,10 @@ name: cluster
 packages:
   - redis
 templates:
-  bin/ctl: bin/ctl
+  bin/pre-start: bin/pre-start
   bin/post-deploy: bin/post-deploy
-  bin/monit_debugger: bin/monit_debugger
+  config/bpm.yml: config/bpm.yml
   config/redis.conf: config/redis.conf
-  data/properties.sh.erb: data/properties.sh
-  helpers/ctl_setup.sh: helpers/ctl_setup.sh
-  helpers/ctl_utils.sh: helpers/ctl_utils.sh
 
 provides:
   - name: redis
@@ -114,3 +111,7 @@ properties:
       Disable Redis commands, to enable or disable LUA scripting commands
       use the configuration `lua.scripting-enabled` instead.
     default: ["CONFIG", "SAVE", "BGSAVE", "DEBUG", "SHUTDOWN", "SLAVEOF"]
+
+  vm.memory_mb:
+    description: Total VM memory in MB (Redis will use 90% of this value)
+    default: 1024

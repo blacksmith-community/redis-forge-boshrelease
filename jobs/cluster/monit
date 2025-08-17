@@ -1,5 +1,5 @@
 check process cluster
-  with pidfile /var/vcap/sys/run/cluster/cluster.pid
-  start program "/var/vcap/jobs/cluster/bin/monit_debugger cluster_ctl '/var/vcap/jobs/cluster/bin/ctl start'"
-  stop program "/var/vcap/jobs/cluster/bin/monit_debugger cluster_ctl '/var/vcap/jobs/cluster/bin/ctl stop'"
+  with pidfile /var/vcap/sys/run/bpm/cluster/cluster.pid
+  start program "/var/vcap/jobs/bpm/bin/bpm start cluster"
+  stop program "/var/vcap/jobs/bpm/bin/bpm stop cluster"
   group vcap

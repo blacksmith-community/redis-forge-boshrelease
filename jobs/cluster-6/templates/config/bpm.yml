@@ -1,0 +1,18 @@
+processes:
+- name: cluster-6
+  executable: /var/vcap/packages/redis-6/bin/redis-server
+  args:
+  - /var/vcap/jobs/cluster-6/config/redis.conf
+  env:
+    LANG: en_US.UTF-8
+  limits:
+    memory: <%= (p('vm.memory_mb') * 0.9).to_i %>M
+    open_files: 65536
+  ephemeral_disk: true
+  persistent_disk: true
+  unsafe:
+    privileged: true
+    host_pid_namespace: true
+  capabilities:
+  - NET_BIND_SERVICE
+  workdir: /var/vcap/store/cluster-6

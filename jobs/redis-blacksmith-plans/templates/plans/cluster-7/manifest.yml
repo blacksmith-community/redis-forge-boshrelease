@@ -26,7 +26,12 @@ features:
   use_dns_addresses: true
 
 releases:
-  - { name: redis-forge, version: latest }
+  - name: redis-forge
+    version: latest
+  - name: "bpm"
+    version: "1.4.20"
+    url: "https://bosh.io/d/github.com/cloudfoundry/bpm-release?v=1.4.20"
+    sha1: sha256:1984129b352cd414e29a7dcffcf076049a776afa511cd44b587065f6e618cc6d
 
 stemcells:
 - alias: default
@@ -56,6 +61,8 @@ instance_groups:
     <% end -%>
 
     jobs:
+      - name:    bpm
+        release: bpm
       - name:    cluster-7
         release: redis-forge
         properties:

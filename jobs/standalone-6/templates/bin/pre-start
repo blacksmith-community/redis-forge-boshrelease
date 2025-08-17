@@ -2,6 +2,7 @@
 
 export JOB_DIR=/var/vcap/jobs/standalone-6
 export DATA_DIR=/var/vcap/data/standalone-6
+export PATH="/var/vcap/packages/redis-6/bin:$PATH"
 
 openssl req -new -nodes -days 730 -newkey rsa:2048 -keyout $DATA_DIR/redis.key -out $DATA_DIR/redis.csr -config $JOB_DIR/config/req.conf -extensions 'v3_req'
 
@@ -11,4 +12,14 @@ cp $JOB_DIR/config/tls/redis.ca /usr/local/share/ca-certificates/redis.crt
 update-ca-certificates
 
 chown vcap:vcap $DATA_DIR/*
+
+# System configuration for Redis
+sysctl vm.overcommit_memory=1
+echo never > /sys/kernel/mm/transparent_hugepage/enabled || true
+
+# Create Redis version files
+mkdir -p /var/vcap/store/standalone-6
+chpst -u vcap:vcap redis-server --version > /var/vcap/store/standalone-6/REDIS_VERSION_FULL
+chpst -u vcap:vcap redis-server --version | sed -e 's/.* v=\([^ ]*\).*/\1/' > /var/vcap/store/standalone-6/REDIS_VERSION
+chown vcap:vcap /var/vcap/store/standalone-6/REDIS_VERSION_FULL /var/vcap/store/standalone-6/REDIS_VERSION
 
