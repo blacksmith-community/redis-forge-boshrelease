@@ -36,18 +36,18 @@ properties:
   cluster.boot_wait:
     description: Number of seconds to wait for the cluster to settle, after the initial deploy.
     default: 20
-  
+
   lua.scripting-enabled:
     description: Whether or not to allow lua scripting.
     default: true
-  
+
   client.connections:
     description: Set the max number of connected clients at the same time
-    default: 10000 
+    default: 10000
 
   client.timeout:
     description: Close the connection after a client is idle for N seconds (0 to disable)
-    default: 0 
+    default: 0
 
   client.tcpkeepalive:
     description: If non-zero, use SO_KEEPALIVE to send TCP ACKs to clients in absence of communication
@@ -77,7 +77,7 @@ properties:
 
   redis.notify-keyspace-events:
     description: |
-      Sets the keyspace notifications for events that 
+      Sets the keyspace notifications for events that
       affect the Redis data set
 
     default: ""
@@ -114,4 +114,3 @@ properties:
 
   vm.memory_mb:
     description: Total VM memory in MB (Redis will use 90% of this value)
-    default: 1024
