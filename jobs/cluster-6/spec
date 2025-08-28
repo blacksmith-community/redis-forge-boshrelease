@@ -130,6 +130,3 @@ properties:
       Disable Redis commands, to enable or disable LUA scripting commands
       use the configuration `lua.scripting-enabled` instead.
     default: ["CONFIG", "SAVE", "BGSAVE", "DEBUG", "SHUTDOWN", "SLAVEOF", "ACL"]
-
-  vm.memory_mb:
-    description: Total VM memory in MB (Redis will use 90% of this value)

@@ -6,9 +6,6 @@ processes:
   env:
     LANG: en_US.UTF-8
   limits:
-<% if p('vm.memory_mb') && (p('vm.memory_mb').to_i > 0) -%>
-    memory: <%= p('vm.memory_mb').to_i %>
-<% end -%>
     open_files: 65536
   ephemeral_disk: true
   persistent_disk: true
