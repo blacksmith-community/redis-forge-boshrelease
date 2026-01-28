@@ -52,6 +52,9 @@ properties:
     description: Human-friendly name for this service, to be displayed in the Cloud Foundry marketplace.
     default: redis
 
+  service.stemcell:
+    description: The stemcell to use for new redis service.
+
   service.description:
     description: A description for this service, to be displayed in the Cloud Foundry marketplace.
     default: A dedicated Redis instance, deployed just for you.
