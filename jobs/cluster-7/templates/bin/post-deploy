@@ -101,7 +101,7 @@ for ((i = 0; i < len; i++)); do
 
         if [ -n "$ip_a" ] && [ -n "$ip_b" ]; then
             log "Introducing $a ($ip_a) to $b ($ip_b)"
-            redis "$ip_a" CLUSTER MEET "$ip_b" 6379
+            redis "$ip_a" CLUSTER MEET "$ip_b" <%= p('redis.tls.enabled') && p('redis.tls.dual-mode') ? 16379 : 6379 %>
         else
             log "Failed to resolve DNS for $a or $b"
         fi
