@@ -54,6 +54,7 @@ properties:
 
   service.stemcell:
     description: The stemcell to use for new redis service.
+    default: latest
 
   service.description:
     description: A description for this service, to be displayed in the Cloud Foundry marketplace.
