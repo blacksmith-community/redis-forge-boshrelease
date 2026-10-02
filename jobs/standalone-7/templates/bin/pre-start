@@ -11,7 +11,7 @@ openssl x509 -req -in $DATA_DIR/redis.csr -CA $JOB_DIR/config/tls/redis.cert -CA
 cp $JOB_DIR/config/tls/redis.ca /usr/local/share/ca-certificates/redis.crt
 update-ca-certificates
 
-chown vcap:vcap $DATA_DIR/*
+chown vcap:vcap $DATA_DIR $DATA_DIR/*
 
 # System configuration for Redis
 sysctl vm.overcommit_memory=1
