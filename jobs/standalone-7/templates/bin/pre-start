@@ -1,8 +1,11 @@
 #!/bin/bash
+set -eu
 
 export JOB_DIR=/var/vcap/jobs/standalone-7
 export DATA_DIR=/var/vcap/data/standalone-7
 export PATH="/var/vcap/packages/redis-7/bin:$PATH"
+
+mkdir -p "$DATA_DIR"
 
 openssl req -new -nodes -days 730 -newkey rsa:2048 -keyout $DATA_DIR/redis.key -out $DATA_DIR/redis.csr -config $JOB_DIR/config/req.conf -extensions 'v3_req'
 
