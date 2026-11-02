@@ -19,9 +19,6 @@ variables:
       from: redis-san 
       properties: { wildcard: true }
 
-features:
-  use_dns_addresses: true
-
 releases:
   - name: redis-forge
     version: latest
