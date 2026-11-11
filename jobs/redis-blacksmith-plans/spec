@@ -52,6 +52,13 @@ properties:
     description: Human-friendly name for this service, to be displayed in the Cloud Foundry marketplace.
     default: redis
 
+  stemcell_os:
+    description: "Stemcell OS for service instance deployments"
+    default: ubuntu-jammy
+
+  stemcell_version:
+    description: "Stemcell version for service instance deployments. When unset, the plans fall back to service.stemcell where they used it before, and to latest elsewhere."
+
   service.stemcell:
     description: The stemcell to use for new redis service.
     default: latest
