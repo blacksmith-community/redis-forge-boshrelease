@@ -1,0 +1,74 @@
+name: redis-forge
+version: 1.5.0
+commit_hash: 764896c
+uncommitted_changes: false
+jobs:
+- name: cluster
+  version: 94fe5ca0cdb6751ce35c68c909b463b15243a06c8b9176f92a8c59191b03e873
+  fingerprint: 94fe5ca0cdb6751ce35c68c909b463b15243a06c8b9176f92a8c59191b03e873
+  sha1: sha256:4c549029ce3c4e990586ad13276b11c6881069887470a5a9a78a16843da2616e
+  packages:
+  - redis
+- name: cluster-6
+  version: 7bf1ee208fedc04c93be70ac6a8c09abc1387364d4ac16dcefc542e7ca49d42b
+  fingerprint: 7bf1ee208fedc04c93be70ac6a8c09abc1387364d4ac16dcefc542e7ca49d42b
+  sha1: sha256:68cbb309eaaf31f4a409b085a5a8d37f106cc155face67881eab1bea9b6ae8a3
+  packages:
+  - redis-6
+  - stunnel
+- name: cluster-7
+  version: 21952f62fe21fb30ba8a63e20b88161bbe3ec594bb8512fdd3adcf48d600abbc
+  fingerprint: 21952f62fe21fb30ba8a63e20b88161bbe3ec594bb8512fdd3adcf48d600abbc
+  sha1: sha256:6409f4d08f24ebce3a0bd534bc3cad696257753a4d2ed70aeb850beafbb1dd32
+  packages:
+  - redis-7
+  - stunnel
+- name: redis-blacksmith-plans
+  version: 2cf7a4129b5f6caf27c27bc8675e83db99a6fafef075a36794d33d2108fd3d86
+  fingerprint: 2cf7a4129b5f6caf27c27bc8675e83db99a6fafef075a36794d33d2108fd3d86
+  sha1: sha256:20bd61ac32f546093a074fa3662cfdb4df3a50e1bc1656330134568286a302a5
+  packages: []
+- name: standalone
+  version: 22d445e30d3469d7ccbab77227963a27565c898081a5ba03997a8e0db5b15fbd
+  fingerprint: 22d445e30d3469d7ccbab77227963a27565c898081a5ba03997a8e0db5b15fbd
+  sha1: sha256:af4b485fdaa6ae2c6a1400917c283a98523d8ccae082a79c7c7751d3a9c36e19
+  packages:
+  - redis
+- name: standalone-6
+  version: d80d79622bda1a0aeb3f6c69ee4a99c6f7b125d776c6570b64523f097dca9bd0
+  fingerprint: d80d79622bda1a0aeb3f6c69ee4a99c6f7b125d776c6570b64523f097dca9bd0
+  sha1: sha256:b10cd3157d13594fc8edbf623196b22bbfefe532cd28f42dd1b6b1733308debf
+  packages:
+  - redis-6
+- name: standalone-7
+  version: ff89a035903d6c69fc8dcc06a62970a0272a192b63a3ac688d91c375c4e9bf48
+  fingerprint: ff89a035903d6c69fc8dcc06a62970a0272a192b63a3ac688d91c375c4e9bf48
+  sha1: sha256:a97f91f753ab18488e561a09fffc4c5f9249e940ee9f99b453ca00331d6691b2
+  packages:
+  - redis-7
+packages:
+- name: redis
+  version: 8ec517529bec18f0a36c3efadd729972651cd456001f78e2bbb490cd86a6c95b
+  fingerprint: 8ec517529bec18f0a36c3efadd729972651cd456001f78e2bbb490cd86a6c95b
+  sha1: sha256:495a0d333f5efe232775507b50190f30777a39788f6f69056d4a23cbb7f9c9da
+  dependencies: []
+- name: redis-6
+  version: a5814e16387dd21bc4a930c0392850788416b363818a7bf958533cecbdc8e603
+  fingerprint: a5814e16387dd21bc4a930c0392850788416b363818a7bf958533cecbdc8e603
+  sha1: sha256:7083ec17ec6f7263ba03312f713f8b0a38892d427ddbccbd12d0a91a332c90a7
+  dependencies: []
+- name: redis-7
+  version: ea1bfe1ff9968f172a84500474a53a62cb91b5044d3e74ecb41c7c60d696385a
+  fingerprint: ea1bfe1ff9968f172a84500474a53a62cb91b5044d3e74ecb41c7c60d696385a
+  sha1: sha256:fbcb859d7dedf56ba78e4ff7c0923cb824ff7a8710d81cd075bfbecbae2c6fa7
+  dependencies: []
+- name: stunnel
+  version: 68cf53c94d672e9446e4871b149dacb604a92149372d0d30877ffb18d991769f
+  fingerprint: 68cf53c94d672e9446e4871b149dacb604a92149372d0d30877ffb18d991769f
+  sha1: sha256:c6a417c0386d2726cc2cc2b0fb08a94a70643e601e776bcfd41c5e296ec3f1c6
+  dependencies: []
+license:
+  version: 2ddf44a51ba997973997ce5343ce1bdc8ee0d1bce5c91d6f0db4fb1386a58cb1
+  fingerprint: 2ddf44a51ba997973997ce5343ce1bdc8ee0d1bce5c91d6f0db4fb1386a58cb1
+  sha1: sha256:1cdbc5f984b80710798e07a1b285d3fbbbc05d2c9b2c27e3f35f12a809a93ef9
+no_compression: false

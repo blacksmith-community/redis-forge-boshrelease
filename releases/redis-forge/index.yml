@@ -19,6 +19,8 @@ builds:
     version: 1.0.0-rc.1
   37145d26-28cc-4365-600a-b9b78bf314d5:
     version: 0.8.11
+  37fe6a54-160e-496a-4baf-144da12e92ef:
+    version: 1.5.0
   40af0087-f4b7-4cd2-4bcd-bda0d50fa3e5:
     version: 1.3.0
   4132eaa8-298f-4376-6613-1b6ca6491e14:
