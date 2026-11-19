@@ -64,9 +64,10 @@ properties:
 
   redis.slowlog-log-slower-than:
     description: |
-      Sets the threshhold execution time (seconds).
+      Sets the threshold execution time in microseconds.
       Commands that exceed this execution time are added
-      to the slowlog.
+      to the slowlog. 0 logs every command, and -1 disables
+      the slowlog.
 
     default: 10000
 
