@@ -42,6 +42,9 @@ for file in init credentials.yml manifest.yml; do
 done
 chmod 0755 "$PLANROOT/init"
 
+echo -e "Copying: $PLANSRC/schema.json => $PLANROOT/"
+cp "$PLANSRC/schema.json" "$PLANROOT/"
+
 echo -e "Writing: $PLANROOT/params.yml"
 cat > $PLANROOT/params.yml <<EOF
 ---
