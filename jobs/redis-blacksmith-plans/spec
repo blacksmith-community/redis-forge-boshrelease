@@ -8,7 +8,9 @@ templates:
   config/tls/redis.key: config/tls/redis.key
 
   plans/service.yml:                plans/service.yml
-  plans/schema.json:                plans/schema.json
+  plans/schema-5.json:              plans/schema-5.json
+  plans/schema-6.json:              plans/schema-6.json
+  plans/schema-7.json:              plans/schema-7.json
 
   plans/standalone/manifest.yml:    plans/standalone/manifest.yml
   plans/standalone/credentials.yml: plans/standalone/credentials.yml

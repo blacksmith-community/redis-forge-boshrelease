@@ -42,8 +42,11 @@ for file in init credentials.yml manifest.yml; do
 done
 chmod 0755 "$PLANROOT/init"
 
-echo -e "Copying: $PLANSRC/schema.json => $PLANROOT/"
-cp "$PLANSRC/schema.json" "$PLANROOT/"
+<% schema_file = case plan["type"] when /-6$/ then "schema-6.json" when /-7$/ then "schema-7.json" else "schema-5.json" end -%>
+# The schema follows the Redis the plan type runs, since each version
+# accepts its own set of notify-keyspace-events flags.
+echo -e "Copying: $PLANSRC/<%= schema_file %> => $PLANROOT/schema.json"
+cp "$PLANSRC/<%= schema_file %>" "$PLANROOT/schema.json"
 
 echo -e "Writing: $PLANROOT/params.yml"
 cat > $PLANROOT/params.yml <<EOF

@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "maxmemory-policy": {
+      "type": "string",
+      "description": "What Redis does when it reaches maxmemory and has to make room. Defaults to allkeys-lru.",
+      "enum": [
+        "noeviction",
+        "allkeys-lru",
+        "allkeys-lfu",
+        "allkeys-random",
+        "volatile-lru",
+        "volatile-lfu",
+        "volatile-random",
+        "volatile-ttl"
+      ],
+      "default": "allkeys-lru"
+    },
+    "notify-keyspace-events": {
+      "type": "string",
+      "description": "Which keyspace and keyevent notifications Redis publishes, written as the event flag characters. The empty string, which is the default, turns notifications off.",
+      "pattern": "^[KEg$lshzxetdmA]*$",
+      "default": ""
+    },
+    "slowlog-log-slower-than": {
+      "type": "integer",
+      "description": "The execution time, in microseconds, above which a command goes in the slow log. Zero logs every command, and -1 turns the slow log off. Defaults to 10000.",
+      "minimum": -1,
+      "default": 10000
+    },
+    "slowlog-max-len": {
+      "type": "integer",
+      "description": "How many entries the slow log keeps before it drops the oldest. Defaults to 128.",
+      "minimum": 0,
+      "default": 128
+    }
+  }
+}
